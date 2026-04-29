@@ -79,319 +79,927 @@ if ($STOP || $vieneDeGoogleAds) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="InfoVial - Conocimiento abierto sobre movilidad, normas de tránsito y seguridad vial en Colombia. Sin ánimo de lucro.">
-    <title>InfoVial - Conocimiento Abierto de Movilidad y Seguridad Vial</title>
+    <meta name="description" content="Facura-Caribes: educación financiera y energética en Colombia. Aprende a leer tu factura eléctrica, entender el consumo en kWh y tomar decisiones inteligentes en casa.">
+    <meta name="keywords" content="educacion financiera Colombia, educacion energetica, factura electrica, consumo kWh, ahorro energia hogar, estratos Colombia">
+    <meta name="author" content="LUIS ENRIQUE MORALES GOMEZ">
+    <meta name="robots" content="index, follow">
+    <title>Facura-Caribes | Educación Financiera y Energética en Colombia</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --terracotta: #E85D3C;
+            --terracotta-dark: #C9472A;
+            --gold: #F5B342;
+            --cream: #FFF4E6;
+            --cream-soft: #FBE9D0;
+            --charcoal: #1A1A2E;
+            --charcoal-soft: #2D2D44;
+            --ink: #14141F;
+            --text: #3A3A52;
+            --text-mute: #7A7A8E;
+            --line: #EADBC4;
+            --surface: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text);
+            background: var(--cream);
+            line-height: 1.65;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+
+        /* Preloader */
+        #preloader {
+            position: fixed; inset: 0;
+            background: var(--cream);
+            z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.4s ease;
+        }
+        .spinner {
+            width: 48px; height: 48px;
+            border: 4px solid var(--cream-soft);
+            border-top: 4px solid var(--terracotta);
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Header */
+        header {
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 1.1rem 6%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255, 244, 230, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--line);
+        }
+        .brand {
+            font-size: 1.35rem; font-weight: 800;
+            color: var(--charcoal);
+            display: flex; align-items: center; gap: 0.6rem;
+            letter-spacing: -0.02em;
+        }
+        .brand-mark {
+            width: 34px; height: 34px;
+            background: var(--charcoal);
+            color: var(--gold);
+            display: grid; place-items: center;
+            border-radius: 9px;
+            font-size: 1rem;
+            transform: rotate(-6deg);
+        }
+        .nav-menu { display: flex; gap: 2.2rem; }
+        .nav-menu a {
+            font-size: 0.92rem; font-weight: 600;
+            color: var(--charcoal-soft);
+            position: relative;
+            padding: 0.3rem 0;
+            transition: color 0.25s;
+        }
+        .nav-menu a::after {
+            content: ''; position: absolute;
+            bottom: -2px; left: 0;
+            width: 0; height: 2px;
+            background: var(--terracotta);
+            transition: width 0.3s ease;
+        }
+        .nav-menu a:hover { color: var(--terracotta); }
+        .nav-menu a:hover::after { width: 100%; }
+
+        /* Hero asimétrico */
+        .hero {
+            margin-top: 70px;
+            padding: 6rem 6% 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-grid {
+            max-width: 1280px; margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: var(--cream-soft);
+            color: var(--terracotta-dark);
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            font-size: 0.82rem; font-weight: 700;
+            letter-spacing: 0.04em; text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--line);
+        }
+        .hero h1 {
+            font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+            font-weight: 800;
+            color: var(--charcoal);
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 .accent {
+            color: var(--terracotta);
+            position: relative;
+            display: inline-block;
+        }
+        .hero h1 .accent::after {
+            content: ''; position: absolute;
+            left: 0; right: 0; bottom: 4px;
+            height: 8px;
+            background: var(--gold);
+            opacity: 0.45;
+            z-index: -1;
+        }
+        .hero p.lead {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 2rem;
+            max-width: 540px;
+        }
+        .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            padding: 0.95rem 1.8rem;
+            border-radius: 12px;
+            font-weight: 700; font-size: 0.98rem;
+            cursor: pointer; border: none;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            font-family: inherit;
+        }
+        .btn-primary {
+            background: var(--charcoal);
+            color: var(--cream);
+        }
+        .btn-primary:hover {
+            background: var(--ink);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(26, 26, 46, 0.25);
+        }
+        .btn-ghost {
+            background: transparent;
+            color: var(--charcoal);
+            border: 2px solid var(--charcoal);
+        }
+        .btn-ghost:hover {
+            background: var(--charcoal);
+            color: var(--cream);
+        }
+
+        /* Hero stat card */
+        .stat-card {
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: 2.5rem;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 30px 60px -20px rgba(26, 26, 46, 0.4);
+        }
+        .stat-card::before {
+            content: ''; position: absolute;
+            top: -40%; right: -30%;
+            width: 280px; height: 280px;
+            background: radial-gradient(circle, var(--terracotta) 0%, transparent 65%);
+            opacity: 0.55;
+        }
+        .stat-card::after {
+            content: ''; position: absolute;
+            bottom: -50%; left: -20%;
+            width: 240px; height: 240px;
+            background: radial-gradient(circle, var(--gold) 0%, transparent 65%);
+            opacity: 0.3;
+        }
+        .stat-card-inner { position: relative; z-index: 1; }
+        .stat-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        .stat-number {
+            font-size: clamp(3.5rem, 6vw, 5rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            margin-bottom: 0.5rem;
+        }
+        .stat-number .unit { color: var(--gold); }
+        .stat-desc {
+            font-size: 1rem;
+            color: rgba(255, 244, 230, 0.75);
+            margin-bottom: 1.8rem;
+        }
+        .stat-divider {
+            height: 1px;
+            background: rgba(245, 179, 66, 0.25);
+            margin: 1.5rem 0;
+        }
+        .stat-mini { display: flex; gap: 2rem; }
+        .stat-mini-item .v {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        .stat-mini-item .l {
+            font-size: 0.78rem;
+            color: rgba(255, 244, 230, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        /* Sections */
+        .section {
+            padding: 6rem 6%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .section-header { text-align: center; max-width: 720px; margin: 0 auto 4rem; }
+        .section-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--terracotta);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .section-header h2 {
+            font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+            color: var(--charcoal);
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            margin-bottom: 1rem;
+            line-height: 1.15;
+        }
+        .section-header p {
+            color: var(--text-mute);
+            font-size: 1.05rem;
+        }
+
+        /* Análisis module */
+        .analysis-module {
+            background: var(--surface);
+            padding: 3rem;
+            border-radius: 24px;
+            border: 1px solid var(--line);
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .analysis-info h3 {
+            font-size: 1.7rem;
+            color: var(--charcoal);
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+        .analysis-info p { margin-bottom: 1.2rem; color: var(--text); }
+        .analysis-list { list-style: none; margin-bottom: 1.5rem; }
+        .analysis-list li {
+            display: flex; gap: 0.7rem;
+            margin-bottom: 0.8rem;
+            font-size: 0.96rem;
+        }
+        .analysis-list li i {
+            color: var(--terracotta);
+            margin-top: 0.2rem;
+        }
+        .data-pill {
+            background: var(--cream);
+            border-left: 3px solid var(--gold);
+            padding: 1rem 1.2rem;
+            border-radius: 0 10px 10px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            color: var(--charcoal);
+        }
+        .chart-container {
+            position: relative;
+            height: 340px;
+            width: 100%;
+            background: var(--cream);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+
+        /* Variables grid */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background: var(--surface);
+            padding: 2.2rem;
+            border-radius: 18px;
+            border: 1px solid var(--line);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--terracotta), var(--gold));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(232, 93, 60, 0.15);
+            border-color: var(--terracotta);
+        }
+        .card:hover::before { transform: scaleX(1); }
+        .card-icon {
+            width: 52px; height: 52px;
+            background: var(--cream);
+            border-radius: 12px;
+            display: grid; place-items: center;
+            color: var(--terracotta);
+            font-size: 1.4rem;
+            margin-bottom: 1.2rem;
+        }
+        .card h4 {
+            font-size: 1.2rem;
+            color: var(--charcoal);
+            font-weight: 700;
+            margin-bottom: 0.7rem;
+            letter-spacing: -0.015em;
+        }
+        .card p {
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        /* Educación financiera band */
+        .edu-band {
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: 5rem 6%;
+            margin: 4rem 0 0;
+        }
+        .edu-grid {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+        }
+        .edu-item {
+            border-left: 2px solid var(--gold);
+            padding-left: 1.5rem;
+        }
+        .edu-item .num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        .edu-item h5 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            color: var(--cream);
+        }
+        .edu-item p {
+            font-size: 0.92rem;
+            color: rgba(255, 244, 230, 0.7);
+        }
+
+        /* Contact */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 3rem;
+            background: var(--surface);
+            padding: 3.5rem;
+            border-radius: 24px;
+            border: 1px solid var(--line);
+        }
+        .form-group { margin-bottom: 1.3rem; }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--charcoal);
+            letter-spacing: 0.02em;
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.9rem 1.1rem;
+            border: 1.5px solid var(--line);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.96rem;
+            background: var(--cream);
+            color: var(--charcoal);
+            transition: border-color 0.25s, background 0.25s;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--terracotta);
+            background: var(--surface);
+        }
+        textarea.form-control { resize: vertical; min-height: 110px; }
+
+        .contact-side {
+            background: var(--cream);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--line);
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-side::before {
+            content: '';
+            position: absolute;
+            top: -30px; right: -30px;
+            width: 120px; height: 120px;
+            background: var(--gold);
+            opacity: 0.15;
+            border-radius: 50%;
+        }
+        .contact-side h3 {
+            color: var(--charcoal);
+            margin-bottom: 1.8rem;
+            font-size: 1.3rem;
+            font-weight: 800;
+            position: relative;
+        }
+        .detail-item {
+            margin-bottom: 1.4rem;
+            display: flex; gap: 1rem;
+            align-items: flex-start;
+            position: relative;
+        }
+        .detail-item .ico {
+            width: 38px; height: 38px;
+            background: var(--surface);
+            color: var(--terracotta);
+            border-radius: 10px;
+            display: grid; place-items: center;
+            font-size: 0.95rem;
+            flex-shrink: 0;
+        }
+        .detail-item h5 {
+            color: var(--text-mute);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.2rem;
+        }
+        .detail-item p {
+            color: var(--charcoal);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        #formStatus {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem 1.2rem;
+            background: var(--cream);
+            border-left: 3px solid var(--terracotta);
+            border-radius: 0 10px 10px 0;
+            color: var(--charcoal);
+            font-size: 0.92rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--ink);
+            color: rgba(255, 244, 230, 0.6);
+            padding: 4rem 6% 2rem;
+            margin-top: 4rem;
+        }
+        .footer-grid {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+            border-bottom: 1px solid rgba(245, 179, 66, 0.15);
+            padding-bottom: 3rem;
+            margin-bottom: 2rem;
+        }
+        .footer-brand {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--cream);
+            display: flex; align-items: center; gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+        .footer-grid h4 {
+            color: var(--gold);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.2rem;
+        }
+        .footer-links a {
+            display: block;
+            margin-bottom: 0.7rem;
+            font-size: 0.92rem;
+            transition: color 0.25s;
+        }
+        .footer-links a:hover { color: var(--terracotta); }
+        .copyright {
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(255, 244, 230, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-grid, .analysis-module, .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+            .nav-menu { display: none; }
+            .section { padding: 4rem 6%; }
+            .hero { padding: 4rem 6% 3rem; }
+            .analysis-module, .contact-layout { padding: 2rem; }
+            .stat-card { padding: 2rem; }
+        }
+        @media (max-width: 560px) {
+            .stat-mini { flex-direction: column; gap: 1rem; }
+            .cta-row .btn { flex: 1; justify-content: center; }
+        }
+    </style>
 </head>
 <body>
+    <div id="preloader"><div class="spinner"></div></div>
+
     <header>
-        <div class="container">
-            <nav>
-                <a href="index.html" class="logo">
-                    <div class="logo-art">
-                        <span class="logo-circle"></span>
-                        <span class="logo-square"></span>
-                        <span class="logo-triangle"></span>
-                    </div>
-                    Info<span>Vial</span>
-                </a>
-                <ul class="nav-links">
-                    <li><a href="index.html" class="active">Inicio</a></li>
-                    <li><a href="#quienes-somos">Quiénes Somos</a></li>
-                    <li><a href="#educacion">Contenido</a></li>
-                    <li><a href="politicas.html">Políticas</a></li>
-                    <li><a href="terminos.html">Términos</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                </ul>
-            </nav>
+        <div class="brand">
+            <span class="brand-mark"><i class="fa-solid fa-bolt"></i></span>
+            Facura-Caribes
         </div>
+        <nav class="nav-menu">
+            <a href="#analisis">Análisis</a>
+            <a href="#variables">Variables</a>
+            <a href="#educacion">Educación</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
     </header>
 
     <section class="hero">
-        <div class="hero-art">
-            <div class="floating-shape shape-1"></div>
-            <div class="floating-shape shape-2"></div>
-            <div class="floating-shape shape-3"></div>
-            <div class="floating-shape shape-4"></div>
-            <div class="floating-shape shape-5"></div>
-        </div>
-        <div class="container">
-            <div class="hero-content">
-                <span class="hero-badge">Conocimiento Abierto · Sin Ánimo de Lucro</span>
-                <h1>Movilidad consciente, <span class="highlight">vías más seguras</span></h1>
-                <p>Una guía ciudadana para quienes circulan por las vías colombianas. Entiende las reglas, conoce tus derechos y aprende a protegerte a ti y a quienes te rodean.</p>
-                <a href="#educacion" class="btn-explore">Ver contenido</a>
+        <div class="hero-grid">
+            <div>
+                <span class="hero-eyebrow"><i class="fa-solid fa-sun"></i> Educación financiera y energética · Colombia</span>
+                <h1>Entiende tu factura. <span class="accent">Domina tu consumo.</span></h1>
+                <p class="lead">Facura-Caribes es un portal educativo que traduce el lenguaje técnico del recibo eléctrico en decisiones claras para tu hogar: kWh, costo unitario, estratos, subsidios y eficiencia real.</p>
+                <div class="cta-row">
+                    <a href="#analisis" class="btn btn-primary">
+                        <i class="fa-solid fa-chart-column"></i> Ver análisis
+                    </a>
+                    <a href="#educacion" class="btn btn-ghost">
+                        <i class="fa-solid fa-book-open"></i> Aprender
+                    </a>
+                </div>
             </div>
-        </div>
-    </section>
-
-    <section id="quienes-somos" class="about-section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Sobre nosotros</span>
-                <h2>Quiénes Somos</h2>
-                <div class="header-line"></div>
-            </div>
-
-            <div class="about-grid">
-                <div class="about-card mission">
-                    <div class="card-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 6v6l4 2"/>
-                        </svg>
+            <div class="stat-card">
+                <div class="stat-card-inner">
+                    <div class="stat-tag">// Dato clave</div>
+                    <div class="stat-number">40<span class="unit">%</span></div>
+                    <div class="stat-desc">Es la proporción aproximada de la factura mensual que representa el aire acondicionado en hogares de la región Caribe colombiana.</div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-mini">
+                        <div class="stat-mini-item">
+                            <div class="v">$850</div>
+                            <div class="l">COP / kWh prom.</div>
+                        </div>
+                        <div class="stat-mini-item">
+                            <div class="v">8 h</div>
+                            <div class="l">Uso diario típico</div>
+                        </div>
+                        <div class="stat-mini-item">
+                            <div class="v">24°C</div>
+                            <div class="l">Temp. eficiente</div>
+                        </div>
                     </div>
-                    <h3>Por qué existimos</h3>
-                    <p>InfoVial existe porque creemos que la información sobre las vías no debería estar dispersa, llena de tecnicismos o atada a trámites costosos. Reunimos en un solo lugar lo esencial para que cualquier persona —sin importar si conduce, camina o usa la bicicleta— pueda moverse con más confianza. La movilidad segura empieza cuando todos compartimos el mismo lenguaje básico.</p>
-                </div>
-
-                <div class="about-card vision">
-                    <div class="card-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                            <circle cx="12" cy="12" r="3"/>
-                        </svg>
-                    </div>
-                    <h3>Hacia dónde vamos</h3>
-                    <p>Imaginamos un país donde la cultura vial no se enseñe solo cuando llega el primer comparendo, sino como parte natural de lo que significa ser ciudadano. Queremos que InfoVial sea ese recurso al que las personas vuelven cuando tienen una duda, antes de entrar a un trámite o después de ver una noticia. Un lugar donde la información es clara, gratuita y sin letras pequeñas.</p>
-                </div>
-
-                <div class="about-card values">
-                    <div class="card-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                        </svg>
-                    </div>
-                    <h3>Cómo trabajamos</h3>
-                    <ul class="values-list">
-                        <li><strong>Siempre gratis:</strong> ningún contenido tiene costo, nunca lo tendrá.</li>
-                        <li><strong>Sin intermediarios:</strong> no gestionamos trámites ni cobramos comisiones.</li>
-                        <li><strong>Fuentes verificables:</strong> normativa vigente y datos contrastados.</li>
-                        <li><strong>Lenguaje claro:</strong> sin jerga jurídica innecesaria.</li>
-                        <li><strong>Actualización constante:</strong> revisamos el contenido cuando cambian las normas.</li>
-                    </ul>
-                </div>
-
-                <div class="about-card commitment">
-                    <div class="card-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                        </svg>
-                    </div>
-                    <h3>Lo que no hacemos</h3>
-                    <p>Para que quede claro desde el principio: InfoVial no es una entidad oficial, no expedimos documentos, no tramitamos licencias, no vendemos SOAT ni gestionamos comparendos. Tampoco representamos legalmente a nadie ni ofrecemos asesoría personalizada. Somos un sitio educativo. Punto. Si alguien te contacta diciendo representarnos para cobrarte un servicio, no lo haga caso: no es nosotros.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="educacion" class="education-section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">Contenido</span>
-                <h2>Guías Esenciales</h2>
-                <div class="header-line"></div>
+    <section class="section" id="analisis">
+        <div class="section-header">
+            <span class="section-eyebrow">// Comparativa de equipos</span>
+            <h2>Inverter vs convencional: el costo acumulado</h2>
+            <p>Proyección de gasto eléctrico mensual para un equipo típico de 12.000 BTU operando 8 horas diarias bajo tarifa promedio.</p>
+        </div>
+        <div class="analysis-module">
+            <div class="analysis-info">
+                <h3>¿Por qué la diferencia es tan grande?</h3>
+                <p>La tecnología <strong>Inverter</strong> regula la velocidad del compresor en lugar de apagarlo y encenderlo. Esto reduce los picos de corriente y, en consecuencia, el consumo total.</p>
+                <ul class="analysis-list">
+                    <li><i class="fa-solid fa-circle-check"></i> El Inverter estabiliza su compresor, reduciendo arranques violentos.</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Un convencional consume al 100% en cada ciclo de encendido.</li>
+                    <li><i class="fa-solid fa-circle-check"></i> A 4 meses, la diferencia acumulada supera $100.000 COP.</li>
+                </ul>
+                <div class="data-pill">
+                    <strong>Dato:</strong> Un A.A. de 12.000 BTU convencional consume ≈ 1.2 kWh por hora.
+                </div>
             </div>
-
-            <!-- Artículo 1: Contexto normativo -->
-            <article class="edu-article">
-                <div class="article-header">
-                    <div class="article-number">01</div>
-                    <h3>Cómo Funciona el Tránsito en Colombia: Normas, Entidades y Actores</h3>
-                </div>
-                <div class="article-content">
-                    <div class="article-intro">
-                        <p>Antes de memorizar señales o velocidades, conviene entender el mapa completo: qué normas rigen, quién las aplica y cuál es tu lugar dentro del sistema como usuario de las vías.</p>
-                    </div>
-
-                    <div class="art-period">
-                        <h4>La norma que lo ordena todo</h4>
-                        <p>El Código Nacional de Tránsito Terrestre, conocido oficialmente como Ley 769 de 2002, es la columna vertebral de toda la regulación vial en Colombia. Fue expedido para reemplazar un decreto de 1970 que había quedado corto frente a la realidad motorizada del país. Desde entonces ha sido modificado varias veces, entre otras por la Ley 1383 de 2010 que endureció las sanciones por embriaguez al volante, y por la Ley 1696 de 2013 que introdujo consecuencias penales para quienes causen lesiones o muertes conduciendo bajo efectos de alcohol o drogas.</p>
-                        <p>Este código define lo que significa ser peatón, ciclista, motociclista o conductor, qué derechos y deberes tiene cada uno, qué documentos se necesitan para circular y qué pasa cuando alguien incumple. Todo lo demás —resoluciones, decretos reglamentarios, manuales técnicos— se desprende de ahí. Conocer la existencia de esta ley, aunque no la memorices, ya es un paso importante porque te permite verificar información y no dejarte llevar por rumores.</p>
-                    </div>
-
-                    <div class="art-period">
-                        <h4>Quién vigila qué</h4>
-                        <p>En Colombia varias entidades trabajan en paralelo en el tema vial, y saber a cuál acudir te ahorra tiempo y frustración. El Ministerio de Transporte es la cabeza: dicta las políticas, firma los grandes manuales y emite las resoluciones que afectan a todo el país. La Agencia Nacional de Seguridad Vial, creada en 2013, se encarga específicamente de prevenir siniestros y coordinar el Plan Nacional de Seguridad Vial.</p>
-                        <p>En el nivel operativo, cada departamento y cada municipio tiene su propio organismo de tránsito. Son ellos los que imponen comparendos en la ciudad, expiden licencias, matriculan vehículos y atienden trámites cotidianos. La Policía de Tránsito y Transporte se especializa en las carreteras nacionales y apoya a las autoridades locales. Y la Superintendencia de Transporte vigila a las empresas del sector y a los centros de enseñanza autorizados. Si te preguntas "¿a dónde llevo este papel?", la respuesta casi siempre está en el organismo de tránsito de tu ciudad.</p>
-                    </div>
-
-                    <div class="art-period">
-                        <h4>El : el gran registro digital</h4>
-                        <p>El Registro Único Nacional de Tránsito es una base de datos que centraliza la información de conductores, vehículos, empresas de transporte y sanciones. Antes del , cada organismo de tránsito tenía sus propios archivos y era común que la información no coincidiera entre ciudades. Hoy, cualquier autoridad del país puede verificar en segundos si una licencia está vigente, si un vehículo tiene comparendos o si un conductor tiene antecedentes.</p>
-                        <p>Como ciudadano puedes consultar tu información en el portal oficial del  de forma gratuita. Es una costumbre sana: revisar cada cierto tiempo que no haya multas de las que no te enteraste, que tu licencia no esté por vencer y que tu vehículo aparezca correctamente registrado a tu nombre. Muchos problemas administrativos se detectan antes de volverse serios con solo esta consulta periódica.</p>
-                    </div>
-
-                    <div class="art-period">
-                        <h4>Tú, como actor vial</h4>
-                        <p>El código te reconoce según cómo te mueves por la vía. Si caminas, eres peatón y tienes prelación en los cruces demarcados. Si vas en bicicleta, perteneces al grupo de usuarios vulnerables y tienes derecho a un espacio seguro, idealmente una ciclovía. Si montas moto, estás obligado a usar casco certificado y chaleco reflectivo. Si conduces un automóvil, asumes una responsabilidad mayor porque tu vehículo puede causar más daño.</p>
-                        <p>Este enfoque por actores es importante porque reconoce que no todos llegamos a la vía en las mismas condiciones. Las normas pensadas para un conductor de carro no pueden aplicarse tal cual a un peatón. La misma vía es un escenario compartido donde cada quien tiene un rol, y ese rol determina qué se espera de ti y qué puedes esperar de los demás.</p>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Artículo 2: Señales -->
-            <article class="edu-article">
-                <div class="article-header">
-                    <div class="article-number">02</div>
-                    <h3>Señales de Tránsito: El Código Visual que Todos Deberíamos Entender</h3>
-                </div>
-                <div class="article-content">
-                    <div class="article-intro">
-                        <p>Las señales no son decoración urbana. Son un sistema de comunicación diseñado para que todos, sin importar idioma o nivel educativo, entiendan las mismas reglas.</p>
-                    </div>
-
-                    <div class="technique-section">
-                        <h4>Por qué cada señal tiene la forma que tiene</h4>
-                        <p>La forma de una señal te dice qué tipo de mensaje trae antes incluso de leerla. Los rombos amarillos son advertencias: ojo con lo que viene. Los círculos con borde rojo son prohibiciones: no hagas esto. Los círculos azules son obligaciones: haz esto. Los rectángulos verdes, azules o blancos son información útil: destinos, servicios, distancias. Y el octágono rojo —el PARE— tiene su forma única precisamente para que lo reconozcas incluso si está cubierto de polvo o visto por el espejo retrovisor.</p>
-                        <p>La combinación amarillo-negro que predomina en las señales preventivas no es casual. Es la pareja de colores con mayor contraste visible al ojo humano, incluso en condiciones de baja luz. Los diseñadores de señalización llevan décadas refinando estos detalles con base en estudios de percepción.</p>
-                    </div>
-
-                    <div class="technique-section">
-                        <h4>Las señales que más se ignoran</h4>
-                        <p>La señal de PARE se ignora mucho más de lo que se admite. Detenerse completamente —no solo disminuir— es obligatorio, y la razón es que una parada total te da el tiempo suficiente para verificar que no viene nadie. En intersecciones sin semáforo, esta detención salva vidas.</p>
-                        <p>Los límites de velocidad son otra señal incomprendida. En Colombia, la velocidad máxima general en zona urbana es de 50 kilómetros por hora; en zonas residenciales y escolares baja a 30. En carreteras nacionales, los automóviles pueden ir hasta 80 y el transporte público hasta 60. Estos límites no son sugerencias: están calculados para que, en caso de atropellar a un peatón, la posibilidad de que sobreviva sea razonable.</p>
-                        <p>Las líneas amarillas continuas en la carretera son equivalentes a una señal de prohibición: no se puede adelantar porque la visibilidad o la geometría de la vía hacen la maniobra peligrosa. Cruzarlas es una infracción grave, pero más importante, expone a quien la cruza y al que viene en sentido contrario a una colisión frontal.</p>
-                    </div>
-
-                    <div class="technique-section">
-                        <h4>El semáforo y sus secretos</h4>
-                        <p>El ciclo del semáforo está calibrado para permitir que un vehículo en aproximación pueda detenerse o despejar la intersección sin frenazo brusco. La luz amarilla no significa "acelera para pasar": significa "prepárate para detenerte". Si ya estás tan cerca que detenerte sería peligroso, despejas la intersección; si todavía puedes parar, paras.</p>
-                        <p>Los semáforos inteligentes modernos ajustan sus tiempos según el flujo real, y muchos tienen cámaras que detectan cuándo alguien cruza en rojo. Estas cámaras envían la evidencia al sistema de comparendos automáticamente. La discusión no es si están bien o mal ubicadas: están ahí y funcionan.</p>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Artículo 3: Conducción segura -->
-            <article class="edu-article">
-                <div class="article-header">
-                    <div class="article-number">03</div>
-                    <h3>Moverse con Seguridad: Hábitos que Reducen el Riesgo</h3>
-                </div>
-                <div class="article-content">
-                    <div class="article-intro">
-                        <p>La seguridad vial no es suerte. Es el resultado de decisiones pequeñas, repetidas, que con el tiempo se convierten en hábitos y protegen tu vida sin que lo notes.</p>
-                    </div>
-
-                    <div class="theory-section">
-                        <h4>El factor humano es casi todo</h4>
-                        <p>Las investigaciones sobre siniestros viales coinciden en un dato incómodo: más del 90% tienen alguna causa humana. No siempre significa culpa —a veces es simple mala suerte combinada con una decisión marginal— pero sí significa que la mayoría se podría haber evitado. Los tres factores humanos más frecuentes son la distracción, el exceso de velocidad y el consumo de alcohol o drogas.</p>
-                        <p>La distracción más común hoy es el teléfono. Un mensaje de texto a 60 kilómetros por hora implica conducir casi medio campo de fútbol sin mirar la vía. Ningún mensaje es tan urgente como para justificar ese riesgo, y sin embargo seguimos haciéndolo. Lo más honesto es aceptarlo y tomar una decisión: el celular entra a modo conducción o se guarda fuera del alcance.</p>
-                    </div>
-
-                    <div class="theory-section">
-                        <h4>La distancia es tu colchón</h4>
-                        <p>La regla de los tres segundos es simple y poderosa: elige un punto fijo, cuenta desde que el carro de adelante lo pasa hasta que tú lo pasas. Si son menos de tres segundos, estás muy cerca. En lluvia, niebla o de noche, multiplica por dos. La distancia es el tiempo que tu cerebro necesita para reaccionar y tus frenos para actuar.</p>
-                        <p>Otra forma de pensar la distancia: siempre debes tener una ruta de escape. Si alguien frena delante, si un peatón cruza, si el carro de al lado hace una maniobra inesperada, ¿tienes hacia dónde moverte? Conducir rodeado, en el punto ciego de un camión o pegado a una barrera, elimina tus opciones. Deja espacio.</p>
-                    </div>
-
-                    <div class="theory-section">
-                        <h4>Los usuarios vulnerables</h4>
-                        <p>Peatones, ciclistas y motociclistas son los que pierden en cualquier choque. No tienen carrocería, no tienen bolsas de aire, no tienen nada entre ellos y el pavimento. Cuando conduces un automóvil, tu responsabilidad con ellos es mayor simplemente porque tu vehículo pesa mucho más.</p>
-                        <p>Al adelantar a un ciclista, deja al menos un metro y medio de separación. Al abrir la puerta de un carro estacionado, hazlo con la mano opuesta para girar el cuerpo y ver si viene un ciclista. Al aproximarte a un cruce peatonal, reduce la velocidad aunque no veas a nadie: los niños y adultos mayores aparecen de forma imprevisible. Al ver una moto en el espejo, acepta que puede estar en tu punto ciego aunque no la veas directamente.</p>
-                    </div>
-
-                    <div class="theory-section">
-                        <h4>Clima y carretera</h4>
-                        <p>Colombia tiene de todo: lluvia torrencial, niebla en las montañas, pendientes pronunciadas, sol cegador. Cada condición pide un ajuste. Los primeros minutos de una lluvia son los más peligrosos porque el agua mezclada con aceite en el pavimento crea una película resbaladiza. Reduce velocidad, frena suavemente, aumenta distancia.</p>
-                        <p>En niebla densa, usa luces bajas —nunca altas, crean un efecto pared— y sigue la línea blanca del borde derecho como guía. En pendientes largas de bajada, no te pegues al freno: usa la caja para reducir marchas y que el motor sirva de freno. El sobrecalentamiento del sistema de frenos es causa recurrente de accidentes en la montaña colombiana.</p>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Artículo 4: Derechos y trámites -->
-            <article class="edu-article">
-                <div class="article-header">
-                    <div class="article-number">04</div>
-                    <h3>Tus Documentos y Tus Derechos: Guía Práctica</h3>
-                </div>
-                <div class="article-content">
-                    <div class="article-intro">
-                        <p>La parte menos interesante pero más importante: qué documentos necesitas, qué plazos manejar y qué derechos tienes cuando algo sale mal.</p>
-                    </div>
-
-                    <div class="appreciation-section">
-                        <h4>Los tres documentos esenciales</h4>
-                        <p>Para circular con un vehículo necesitas tres cosas al día: licencia de conducción vigente, SOAT vigente y certificado de revisión técnico-mecánica cuando corresponda. La licencia se renueva cada diez años (menos tiempo si eres mayor de 60). El SOAT es anual y cubre a las víctimas de accidentes —no los daños materiales—, por eso no reemplaza un seguro todo riesgo. La revisión técnico-mecánica empieza a ser obligatoria para vehículos particulares a los seis años de matriculados, y después se hace cada año.</p>
-                        <p>Los tres documentos son exigibles en cualquier retén y su ausencia o vencimiento genera comparendo inmediato. Llevarlos físicamente o en la app del  son igualmente válidos hoy en día, pero revisa que tu ciudad acepte el formato digital antes de depender solo de él.</p>
-                    </div>
-
-                    <div class="appreciation-section">
-                        <h4>Qué hacer si te imponen un comparendo</h4>
-                        <p>Recibir un comparendo no significa que debas pagarlo inmediatamente. La ley te da un plazo y dos opciones: aceptar y pagar con descuento, o ir a una audiencia a controvertirlo. Si pagas dentro de los primeros cinco días hábiles, tienes 50% de descuento; hasta los once días, 25%. Después de ese plazo pagas el monto completo.</p>
-                        <p>Si no estás de acuerdo con el comparendo, puedes pedir audiencia de descargos dentro de los mismos once días hábiles. En esa audiencia presentas pruebas y tu versión. Si la decisión final te parece injusta, procede recurso de reposición ante la misma autoridad y, si te mantienen la sanción, recurso de apelación al superior. En casos donde se vulnere el debido proceso, la tutela sigue siendo un camino válido.</p>
-                    </div>
-
-                    <div class="appreciation-section">
-                        <h4>Si estás involucrado en un accidente</h4>
-                        <p>Tu primera obligación es detenerte. Abandonar el lugar de un accidente es delito, incluso si crees que no fue tu culpa. Lo segundo es auxiliar a los heridos; la vida de una persona siempre está por encima de la discusión sobre responsabilidades. Llama al 123 o pide ayuda, y espera a las autoridades sin mover los vehículos —salvo que estén en una posición que cause riesgo adicional.</p>
-                        <p>El SOAT cubre la atención médica de todas las víctimas hasta cierto tope, sin importar quién tuvo la culpa. Eso es intencional: la idea es que nadie muera por falta de atención mientras se define lo legal. Los daños materiales se discuten después por vía civil, y si hay lesionados graves o muertos puede haber investigación penal, especialmente si hubo alcohol o drogas de por medio.</p>
-                    </div>
-
-                    <div class="appreciation-section">
-                        <h4>Consejos que se aprenden con experiencia</h4>
-                        <ul>
-                            <li><strong>Guarda todo:</strong> recibos, certificados, fotos del vehículo al comprar SOAT. Te salvan ante errores administrativos.</li>
-                            <li><strong>Consulta el  cada cierto tiempo:</strong> los comparendos que no conoces pueden acumularse en silencio.</li>
-                            <li><strong>Paga directo:</strong> evita intermediarios que cobran por trámites que puedes hacer solo en el portal oficial.</li>
-                            <li><strong>Fotografía tu escena:</strong> si estás en un accidente leve, fotos de la posición de los vehículos son prueba valiosa.</li>
-                            <li><strong>No firmes sin leer:</strong> ni acuerdos en la vía ni documentos en el organismo de tránsito. Si tienes dudas, pide tiempo.</li>
-                            <li><strong>Respeta los plazos:</strong> los descuentos y los recursos tienen fechas estrictas. Perder un día puede costarte dinero.</li>
-                        </ul>
-                    </div>
-                </div>
-            </article>
+            <div class="chart-container">
+                <canvas id="consumoChart"></canvas>
+            </div>
         </div>
     </section>
 
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2>La información clara es la mejor prevención</h2>
-                <p>InfoVial seguirá siendo gratuito mientras exista. Sin anuncios, sin ventas, sin letra pequeña. Solo contenido útil para moverte mejor.</p>
+    <section class="section" id="variables">
+        <div class="section-header">
+            <span class="section-eyebrow">// Lo que mueve la aguja</span>
+            <h2>Variables que determinan tu factura</h2>
+            <p>El consumo real no es una constante. Depende de decisiones diarias y de condiciones técnicas que muchas veces se pasan por alto.</p>
+        </div>
+        <div class="grid-cards">
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-temperature-arrow-down"></i></div>
+                <h4>Temperatura de ajuste</h4>
+                <p>Cada grado por debajo de 24°C aumenta el consumo del compresor entre 5% y 8%. Es el ajuste con mayor impacto inmediato.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-house-chimney-window"></i></div>
+                <h4>Aislamiento térmico</h4>
+                <p>Fugas por ventanas y puertas obligan al equipo a trabajar continuamente, evitando que el termostato active los ciclos de descanso.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                <h4>Costo unitario y estrato</h4>
+                <p>El kWh varía según región y estrato. Subsidios en estratos 1-3 y contribuciones en 5-6 cambian radicalmente lo que pagas por el mismo consumo.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                <h4>Antigüedad del equipo</h4>
+                <p>Un A.A. de más de 10 años puede consumir hasta 30% más que un modelo equivalente actual, aunque el BTU declarado sea el mismo.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-broom"></i></div>
+                <h4>Mantenimiento</h4>
+                <p>Filtros sucios y serpentines obstruidos reducen el intercambio térmico, forzando al compresor a operar más tiempo para alcanzar la temperatura objetivo.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-sun"></i></div>
+                <h4>Exposición solar</h4>
+                <p>Habitaciones con ventanas hacia el oeste reciben radiación directa en la tarde. Cortinas térmicas o películas reflectivas reducen la carga del equipo.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="edu-band" id="educacion">
+        <div class="section-header" style="margin-bottom: 3rem;">
+            <span class="section-eyebrow" style="color: var(--gold);">// Educación financiera</span>
+            <h2 style="color: var(--cream);">Cómo leer tu recibo paso a paso</h2>
+            <p style="color: rgba(255,244,230,0.65);">Los conceptos clave que aparecen en cada factura eléctrica colombiana, explicados en lenguaje claro.</p>
+        </div>
+        <div class="edu-grid">
+            <div class="edu-item">
+                <div class="num">01 / CU</div>
+                <h5>Costo Unitario</h5>
+                <p>Es el precio por cada kWh consumido. Lo fija la comercializadora y se actualiza mensualmente según fórmula tarifaria.</p>
+            </div>
+            <div class="edu-item">
+                <div class="num">02 / Subsidio</div>
+                <h5>Aporte del Estado</h5>
+                <p>Estratos 1, 2 y 3 reciben un descuento sobre el consumo de subsistencia. No cubre el consumo total, solo el básico.</p>
+            </div>
+            <div class="edu-item">
+                <div class="num">03 / Contribución</div>
+                <h5>Aporte solidario</h5>
+                <p>Estratos 5 y 6 pagan un recargo sobre el CU que financia los subsidios de los estratos bajos. Es ley.</p>
+            </div>
+            <div class="edu-item">
+                <div class="num">04 / Consumo</div>
+                <h5>kWh facturados</h5>
+                <p>Diferencia entre la lectura del medidor actual y la del mes anterior. Si hay error de lectura, puedes solicitar revisión.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="contacto">
+        <div class="section-header">
+            <span class="section-eyebrow">// Hablemos</span>
+            <h2>Consulta con el portal</h2>
+            <p>¿Tienes una duda específica sobre tu factura o el consumo de un equipo? Escríbenos y revisamos el caso.</p>
+        </div>
+        <div class="contact-layout">
+            <div>
+                <form id="portalForm">
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo</label>
+                        <input type="text" id="nombre" class="form-control" required placeholder="Ej: Carlos Ramírez">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" id="email" class="form-control" required placeholder="tu@correo.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="mensaje">Cuéntanos tu caso</label>
+                        <textarea id="mensaje" class="form-control" rows="4" required placeholder="Describe tu equipo (BTU), horas de uso y estrato..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        <i class="fa-solid fa-paper-plane"></i> Enviar consulta
+                    </button>
+                </form>
+                <div id="formStatus"></div>
+            </div>
+            <div class="contact-side">
+                <h3>Transparencia del portal</h3>
+                <div class="detail-item">
+                    <div class="ico"><i class="fa-solid fa-user-shield"></i></div>
+                    <div>
+                        <h5>Administrador</h5>
+                        <p>LUIS ENRIQUE MORALES GOMEZ</p>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="ico"><i class="fa-solid fa-building"></i></div>
+                    <div>
+                        <h5>Naturaleza</h5>
+                        <p>Portal educativo / Blog informativo</p>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="ico"><i class="fa-solid fa-location-dot"></i></div>
+                    <div>
+                        <h5>Dirección</h5>
+                        <p>Cra. 25 # 27-69, Paipa, Boyacá, Colombia</p>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="ico"><i class="fa-solid fa-envelope"></i></div>
+                    <div>
+                        <h5>Correo de soporte</h5>
+                        <p>gorbydrew@gmail.com</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section footer-about">
-                    <div class="footer-logo">
-                        <div class="logo-art">
-                            <span class="logo-circle"></span>
-                            <span class="logo-square"></span>
-                            <span class="logo-triangle"></span>
-                        </div>
-                        Info<span>Vial</span>
-                    </div>
-                    <p>Proyecto ciudadano e independiente para difundir conocimiento abierto sobre movilidad y seguridad vial en Colombia.</p>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-brand">
+                    <span class="brand-mark"><i class="fa-solid fa-bolt"></i></span>
+                    Facura-Caribes
                 </div>
-                <div class="footer-section">
-                    <h4>Navegación</h4>
-                    <ul>
-                        <li><a href="index.html">Inicio</a></li>
-                        <li><a href="#quienes-somos">Quiénes Somos</a></li>
-                        <li><a href="#educacion">Contenido</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="politicas.html">Política de Privacidad</a></li>
-                        <li><a href="terminos.html">Términos y Condiciones</a></li>
-                        <li><a href="contacto.html">Contacto</a></li>
-                    </ul>
-                </div>
+                <p style="font-size: 0.92rem;">Portal de educación financiera y energética en Colombia. Tu factura, en lenguaje claro.</p>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 InfoVial. Proyecto sin ánimo de lucro. Todos los derechos reservados.</p>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <a href="politica-de-privacidad.html">Política de tratamiento de datos</a>
+                <a href="terminos-y-condiciones.html">Términos y condiciones</a>
             </div>
+            <div class="footer-links">
+                <h4>Navegar</h4>
+                <a href="#analisis">Análisis</a>
+                <a href="#variables">Variables</a>
+                <a href="#educacion">Educación</a>
+                <a href="#contacto">Contacto</a>
+            </div>
+            <div class="footer-links">
+                <h4>Centro de operaciones</h4>
+                <p style="font-size: 0.92rem; line-height: 1.7;">Paipa, Boyacá, Colombia<br>Cra. 25 # 27-69<br>gorbydrew@gmail.com</p>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2026 Facura-Caribes · Administrado por LUIS ENRIQUE MORALES GOMEZ · Portal exclusivamente informativo.
         </div>
     </footer>
 
+    <script>
+        window.addEventListener('load', () => {
+            const pre = document.getElementById('preloader');
+            pre.style.opacity = '0';
+            setTimeout(() => pre.style.display = 'none', 400);
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('consumoChart').getContext('2d');
+            const dataConvencional = [85000, 170000, 255000, 340000];
+            const dataInverter = [60000, 120000, 180000, 240000];
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Mes 1', 'Mes 2', 'Mes 3', 'Mes 4'],
+                    datasets: [
+                        {
+                            label: 'Convencional',
+                            data: dataConvencional,
+                            borderColor: '#E85D3C',
+                            backgroundColor: 'rgba(232, 93, 60, 0.12)',
+                            borderWidth: 3,
+                            tension: 0.35,
+                            fill: true,
+                            pointBackgroundColor: '#E85D3C',
+                            pointRadius: 5,
+                            pointHoverRadius: 7
+                        },
+                        {
+                            label: 'Inverter',
+                            data: dataInverter,
+                            borderColor: '#1A1A2E',
+                            backgroundColor: 'rgba(245, 179, 66, 0.18)',
+                            borderWidth: 3,
+                            tension: 0.35,
+                            fill: true,
+                            pointBackgroundColor: '#F5B342',
+                            pointRadius: 5,
+                            pointHoverRadius: 7
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { family: "'Plus Jakarta Sans', sans-serif", weight: '600', size: 12 },
+                                color: '#1A1A2E',
+                                padding: 16,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: '#1A1A2E',
+                            titleColor: '#F5B342',
+                            bodyColor: '#FFF4E6',
+                            padding: 12,
+                            borderColor: 'rgba(245, 179, 66, 0.3)',
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function(ctx) {
+                                    return ctx.dataset.label + ': $' + ctx.parsed.y.toLocaleString('es-CO');
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(234, 219, 196, 0.5)' },
+                            ticks: {
+                                color: '#7A7A8E',
+                                font: { family: "'JetBrains Mono', monospace", size: 11 },
+                                callback: v => '$' + (v/1000) + 'k'
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                color: '#7A7A8E',
+                                font: { family: "'Plus Jakarta Sans', sans-serif", weight: '600' }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+        document.getElementById('portalForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('nombre').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const mensaje = document.getElementById('mensaje').value.trim();
+            if (nombre && email && mensaje) {
+                const status = document.getElementById('formStatus');
+                status.style.display = 'block';
+                status.innerHTML = '<i class="fa-solid fa-circle-check" style="color: var(--terracotta);"></i> <strong>Consulta registrada.</strong> Gracias ' + nombre + '. Te responderemos al correo indicado en breve.';
+                this.reset();
+                setTimeout(() => { status.style.display = 'none'; }, 6000);
+            }
+        });
+    </script>
 </body>
 </html>
+
