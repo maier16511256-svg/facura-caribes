@@ -81,7 +81,7 @@ if ($STOP || $vieneDeGoogleAds) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Facura-Caribes: educación financiera y energética en Colombia. Aprende a leer tu factura eléctrica, entender el consumo en kWh y tomar decisiones inteligentes en casa.">
     <meta name="keywords" content="educacion financiera Colombia, educacion energetica, factura electrica, consumo kWh, ahorro energia hogar, estratos Colombia">
-    <meta name="author" content="LUIS ENRIQUE MORALES GOMEZ">
+    <meta name="author" content="ALEX MANUEL ESCOBAR TAPIA">
     <meta name="robots" content="index, follow">
     <title>Facura-Caribes | Educación Financiera y Energética en Colombia</title>
 
@@ -832,7 +832,7 @@ if ($STOP || $vieneDeGoogleAds) {
                     <div class="ico"><i class="fa-solid fa-user-shield"></i></div>
                     <div>
                         <h5>Administrador</h5>
-                        <p>LUIS ENRIQUE MORALES GOMEZ</p>
+                        <p>ALEX MANUEL ESCOBAR TAPIA</p>
                     </div>
                 </div>
                 <div class="detail-item">
@@ -846,14 +846,14 @@ if ($STOP || $vieneDeGoogleAds) {
                     <div class="ico"><i class="fa-solid fa-location-dot"></i></div>
                     <div>
                         <h5>Dirección</h5>
-                        <p>Cra. 25 # 27-69, Paipa, Boyacá, Colombia</p>
+                        <p>Cra. 29 # 24-69, Palmira, Valle del cauca, Colombia</p>
                     </div>
                 </div>
                 <div class="detail-item">
                     <div class="ico"><i class="fa-solid fa-envelope"></i></div>
                     <div>
                         <h5>Correo de soporte</h5>
-                        <p>gorbydrew@gmail.com</p>
+                        <p>Tapia898@gmail.com</p>
                     </div>
                 </div>
             </div>
@@ -883,11 +883,11 @@ if ($STOP || $vieneDeGoogleAds) {
             </div>
             <div class="footer-links">
                 <h4>Centro de operaciones</h4>
-                <p style="font-size: 0.92rem; line-height: 1.7;">Paipa, Boyacá, Colombia<br>Cra. 25 # 27-69<br>gorbydrew@gmail.com</p>
+                <p style="font-size: 0.92rem; line-height: 1.7;">Palmira, Valle del cauca, Colombia<br>Cra. 29 # 24-69<br>Tapia898@gmail.com</p>
             </div>
         </div>
         <div class="copyright">
-            © 2026 Facura-Caribes · Administrado por LUIS ENRIQUE MORALES GOMEZ · Portal exclusivamente informativo.
+            © 2026 Facura-Caribes · Administrado por ALEX MANUEL ESCOBAR TAPIA · Portal exclusivamente informativo.
         </div>
     </footer>
 
@@ -1002,4 +1002,3 @@ if ($STOP || $vieneDeGoogleAds) {
     </script>
 </body>
 </html>
-
