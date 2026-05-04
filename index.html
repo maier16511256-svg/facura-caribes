@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -98,3 +99,1239 @@
             justify-content: space-between;
             gap: 2rem;
             padding: 1rem 6%;
+            background: rgba(243, 251, 253, 0.9);
+            border-bottom: 1px solid rgba(216, 231, 238, 0.9);
+            backdrop-filter: blur(14px);
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.72rem;
+            color: var(--deep);
+            font-size: 1.38rem;
+            font-weight: 800;
+        }
+
+        .brand-mark {
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            border-radius: 8px;
+            color: var(--deep);
+            background: linear-gradient(135deg, var(--ice), var(--mint));
+            box-shadow: 0 12px 28px rgba(14, 165, 233, 0.2);
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.8rem;
+            color: var(--muted);
+            font-size: 0.94rem;
+            font-weight: 700;
+        }
+
+        .nav-menu a {
+            position: relative;
+            padding: 0.35rem 0;
+            transition: color 0.2s ease;
+        }
+
+        .nav-menu a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: var(--blue);
+            transition: width 0.25s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--blue-dark);
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.55rem;
+            min-height: 46px;
+            padding: 0.85rem 1.18rem;
+            border: 0;
+            border-radius: 8px;
+            font: inherit;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background: var(--blue);
+            box-shadow: 0 14px 34px rgba(14, 165, 233, 0.24);
+        }
+
+        .btn-primary:hover {
+            background: var(--blue-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            color: var(--deep);
+            background: #fff;
+            border: 1px solid var(--line);
+        }
+
+        .hero {
+            min-height: 92vh;
+            display: grid;
+            align-items: center;
+            padding: 8.8rem 6% 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 18% 20%, rgba(167, 243, 255, 0.62), transparent 28%),
+                radial-gradient(circle at 82% 18%, rgba(102, 228, 196, 0.34), transparent 31%),
+                radial-gradient(circle at 78% 84%, rgba(246, 196, 83, 0.2), transparent 24%),
+                linear-gradient(180deg, #f3fbfd 0%, #e5f7fb 100%);
+            z-index: -1;
+        }
+
+        .hero-grid {
+            max-width: 1220px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, 1.06fr) minmax(350px, 0.94fr);
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: fit-content;
+            margin-bottom: 1.4rem;
+            padding: 0.45rem 0.72rem;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.78);
+            color: var(--blue-dark);
+            font-size: 0.86rem;
+            font-weight: 800;
+        }
+
+        h1 {
+            max-width: 800px;
+            color: var(--deep);
+            font-size: clamp(3.4rem, 7vw, 7.6rem);
+            line-height: 0.92;
+            letter-spacing: 0;
+            font-weight: 800;
+        }
+
+        .hero-copy {
+            max-width: 660px;
+            margin: 1.5rem 0 2rem;
+            color: var(--text);
+            font-size: 1.15rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2.35rem;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+            max-width: 720px;
+        }
+
+        .stat {
+            padding: 1rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.78);
+        }
+
+        .stat strong {
+            display: block;
+            color: var(--deep);
+            font: 800 1.65rem/1 Consolas, "Courier New", monospace;
+        }
+
+        .stat span {
+            display: block;
+            margin-top: 0.35rem;
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .unit-board {
+            position: relative;
+            min-height: 560px;
+        }
+
+        .unit-card {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.92);
+            box-shadow: var(--shadow);
+        }
+
+        .unit-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .unit-title {
+            color: var(--deep);
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+
+        .unit-tag {
+            padding: 0.35rem 0.6rem;
+            border-radius: 999px;
+            color: #075985;
+            background: #e0f2fe;
+            font-size: 0.78rem;
+            font-weight: 800;
+        }
+
+        .ac-visual {
+            min-height: 190px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.82), rgba(224,242,254,0.72)),
+                repeating-linear-gradient(90deg, transparent 0 22px, rgba(14,165,233,0.07) 23px 24px);
+        }
+
+        .ac-shell {
+            width: min(380px, 100%);
+            height: 92px;
+            padding: 18px 24px;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 18px 40px rgba(11, 36, 53, 0.15);
+            border: 1px solid #d8e7ee;
+        }
+
+        .ac-line {
+            height: 10px;
+            margin-top: 18px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--blue), var(--ice));
+        }
+
+        .ac-vents {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+
+        .ac-vents i {
+            height: 8px;
+            border-radius: 999px;
+            background: #d8e7ee;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.85rem;
+        }
+
+        .metric {
+            padding: 1rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: #f8fdff;
+        }
+
+        .metric span {
+            display: block;
+            color: var(--muted);
+            font-size: 0.84rem;
+            font-weight: 700;
+        }
+
+        .metric b {
+            display: block;
+            margin-top: 0.25rem;
+            color: var(--deep);
+            font-size: 1.2rem;
+        }
+
+        .mini-panel {
+            position: absolute;
+            right: -1rem;
+            bottom: 1.4rem;
+            z-index: 2;
+            width: 250px;
+            padding: 1.1rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 18px 44px rgba(11, 36, 53, 0.14);
+        }
+
+        .mini-panel strong {
+            display: block;
+            color: var(--deep);
+            font-size: 1.45rem;
+        }
+
+        .mini-panel span {
+            color: var(--muted);
+            font-size: 0.84rem;
+            font-weight: 700;
+        }
+
+        .air-bars {
+            height: 76px;
+            margin-top: 1rem;
+            display: flex;
+            align-items: end;
+            gap: 0.45rem;
+        }
+
+        .air-bars i {
+            flex: 1;
+            min-width: 12px;
+            border-radius: 4px 4px 0 0;
+            background: linear-gradient(180deg, var(--ice), var(--blue));
+        }
+
+        .section {
+            max-width: 1220px;
+            margin: 0 auto;
+            padding: 5.5rem 6%;
+        }
+
+        .section-header {
+            max-width: 760px;
+            margin-bottom: 2.4rem;
+        }
+
+        .section-header.center {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .section-kicker {
+            color: var(--blue-dark);
+            font-size: 0.82rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            margin-top: 0.45rem;
+            color: var(--deep);
+            font-size: clamp(2rem, 4vw, 3.35rem);
+            line-height: 1.05;
+            letter-spacing: 0;
+        }
+
+        .section-header p {
+            margin-top: 1rem;
+            color: var(--muted);
+            font-size: 1.04rem;
+        }
+
+        .info-panel {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 2rem;
+            align-items: center;
+            padding: 2rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+        }
+
+        .check-list {
+            display: grid;
+            gap: 0.85rem;
+            margin-top: 1.3rem;
+            list-style: none;
+        }
+
+        .check-list li {
+            display: flex;
+            gap: 0.7rem;
+            align-items: flex-start;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .check-list .icon {
+            margin-top: 0.25rem;
+            color: var(--blue);
+        }
+
+        .chart-wrap {
+            height: 340px;
+            padding: 1rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: #fbfdff;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.2rem;
+        }
+
+        .card {
+            min-height: 245px;
+            padding: 1.6rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--surface);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(14, 165, 233, 0.4);
+            box-shadow: 0 18px 40px rgba(11, 36, 53, 0.09);
+        }
+
+        .icon-box {
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 1.15rem;
+            border-radius: 8px;
+            color: var(--deep);
+            background: linear-gradient(135deg, rgba(167, 243, 255, 0.95), rgba(102, 228, 196, 0.86));
+        }
+
+        .card h3 {
+            color: var(--deep);
+            font-size: 1.12rem;
+            line-height: 1.25;
+            margin-bottom: 0.7rem;
+        }
+
+        .card p {
+            color: var(--muted);
+            font-size: 0.96rem;
+        }
+
+        .calculator {
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .controls,
+        .result-box {
+            padding: 1.8rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--surface);
+            box-shadow: 0 14px 36px rgba(11, 36, 53, 0.07);
+        }
+
+        .form-row {
+            display: grid;
+            gap: 0.5rem;
+            margin-bottom: 1.05rem;
+        }
+
+        label {
+            color: var(--deep);
+            font-size: 0.9rem;
+            font-weight: 800;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            min-height: 46px;
+            padding: 0.85rem 0.95rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: #fbfdff;
+            color: var(--deep);
+            font: inherit;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        textarea {
+            min-height: 112px;
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.12);
+        }
+
+        .range-line {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        input[type="range"] {
+            min-height: auto;
+            padding: 0;
+            accent-color: var(--blue);
+        }
+
+        .range-value {
+            min-width: 76px;
+            text-align: right;
+            color: var(--deep);
+            font: 800 0.95rem/1 Consolas, "Courier New", monospace;
+        }
+
+        .result-number {
+            margin: 0.7rem 0 0.25rem;
+            color: var(--deep);
+            font: 800 clamp(2.5rem, 6vw, 4.6rem)/1 Consolas, "Courier New", monospace;
+        }
+
+        .result-note {
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        .breakdown {
+            display: grid;
+            gap: 0.8rem;
+            margin-top: 1.6rem;
+        }
+
+        .breakdown div {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px dashed #d6e7ef;
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        .breakdown b {
+            color: var(--deep);
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .step {
+            padding: 1.3rem;
+            border-left: 4px solid var(--blue);
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 10px 26px rgba(11, 36, 53, 0.06);
+        }
+
+        .step span {
+            color: var(--blue-dark);
+            font: 800 0.85rem/1 Consolas, "Courier New", monospace;
+        }
+
+        .step h3 {
+            margin: 0.7rem 0 0.45rem;
+            color: var(--deep);
+            font-size: 1rem;
+        }
+
+        .step p {
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        details {
+            padding: 1.25rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        summary {
+            cursor: pointer;
+            color: var(--deep);
+            font-weight: 800;
+        }
+
+        details p {
+            margin-top: 0.8rem;
+            color: var(--muted);
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 0.8fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .contact-card {
+            padding: 1.8rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 14px 36px rgba(11, 36, 53, 0.07);
+        }
+
+        .contact-info {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .info-line {
+            display: flex;
+            gap: 0.9rem;
+            align-items: flex-start;
+            padding: 1rem;
+            border-radius: 8px;
+            background: #f0fbff;
+        }
+
+        .info-line .icon {
+            color: var(--blue);
+            margin-top: 0.2rem;
+        }
+
+        .info-line h3 {
+            color: var(--deep);
+            font-size: 0.92rem;
+            margin-bottom: 0.15rem;
+        }
+
+        .info-line p {
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        #formStatus {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px solid rgba(14, 165, 233, 0.32);
+            border-radius: 8px;
+            color: #075985;
+            background: #effaff;
+            font-weight: 800;
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding: 3rem 6% 2rem;
+            color: #c8dce8;
+            background: var(--deep);
+        }
+
+        .footer-grid {
+            max-width: 1220px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr 0.8fr;
+            gap: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .footer-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            margin-bottom: 0.9rem;
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+
+        footer h3 {
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .footer-links {
+            display: grid;
+            gap: 0.55rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--ice);
+        }
+
+        .copyright {
+            max-width: 1220px;
+            margin: 1.5rem auto 0;
+            color: #93afbd;
+            font-size: 0.88rem;
+        }
+
+        @media (max-width: 980px) {
+            header {
+                padding: 0.85rem 5%;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 7.5rem;
+            }
+
+            .hero-grid,
+            .info-panel,
+            .calculator,
+            .contact-layout,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .unit-board {
+                min-height: auto;
+            }
+
+            .mini-panel {
+                position: static;
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            .grid-cards,
+            .steps,
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .hero,
+            .section {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            h1 {
+                font-size: clamp(3.1rem, 18vw, 5rem);
+            }
+
+            .unit-card,
+            .info-panel,
+            .controls,
+            .result-box,
+            .contact-card {
+                padding: 1.15rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="preloader" aria-hidden="true">
+        <div class="spinner"></div>
+    </div>
+
+    <header>
+        <a class="brand" href="#inicio" aria-label="friocarib inicio">
+            <span class="brand-mark"><span class="icon" aria-hidden="true">*</span></span>
+            friocarib
+        </a>
+
+        <nav class="nav-menu" aria-label="Navegacion principal">
+            <a href="#equipos">Equipos</a>
+            <a href="#guia">Guia</a>
+            <a href="#btu">BTU</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <main id="inicio">
+        <section class="hero">
+            <div class="hero-grid">
+                <div>
+                    <span class="eyebrow"><span class="icon" aria-hidden="true">~</span> Guia de climatizacion para clima calido</span>
+                    <h1>friocarib</h1>
+                    <p class="hero-copy">Un sitio informativo sobre aires acondicionados: tipos de equipos, capacidad recomendada, mantenimiento, limpieza de filtros y buenas practicas de uso.</p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#equipos"><span class="icon" aria-hidden="true">&gt;</span> Ver equipos</a>
+                        <a class="btn btn-ghost" href="#btu"><span class="icon" aria-hidden="true">#</span> Calcular BTU</a>
+                    </div>
+                    <div class="hero-stats" aria-label="Resumen de climatizacion">
+                        <div class="stat">
+                            <strong>24°</strong>
+                            <span>temperatura sugerida</span>
+                        </div>
+                        <div class="stat">
+                            <strong>30</strong>
+                            <span>dias para revisar filtro</span>
+                        </div>
+                        <div class="stat">
+                            <strong>12k</strong>
+                            <span>BTU habitacion media</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="unit-board" aria-label="Panel visual de aire acondicionado">
+                    <div class="unit-card">
+                        <div class="unit-top">
+                            <div>
+                                <p class="unit-title">Unidad split residencial</p>
+                                <small>Referencia visual informativa</small>
+                            </div>
+                            <span class="unit-tag">Confort estable</span>
+                        </div>
+
+                        <div class="ac-visual" aria-label="Ilustracion de aire acondicionado">
+                            <div class="ac-shell">
+                                <div class="ac-vents">
+                                    <i></i><i></i><i></i><i></i><i></i>
+                                </div>
+                                <div class="ac-line"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric-grid">
+                            <div class="metric"><span>Ambiente</span><b>Habitacion</b></div>
+                            <div class="metric"><span>Capacidad</span><b>12.000 BTU</b></div>
+                            <div class="metric"><span>Modo sugerido</span><b>Cool</b></div>
+                            <div class="metric"><span>Filtro</span><b>Mensual</b></div>
+                        </div>
+                    </div>
+
+                    <div class="mini-panel">
+                        <span>Flujo de aire</span>
+                        <strong>Distribucion pareja</strong>
+                        <div class="air-bars" aria-hidden="true">
+                            <i style="height: 32%"></i>
+                            <i style="height: 48%"></i>
+                            <i style="height: 68%"></i>
+                            <i style="height: 82%"></i>
+                            <i style="height: 62%"></i>
+                            <i style="height: 44%"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="equipos">
+            <div class="section-header">
+                <span class="section-kicker">Aires acondicionados</span>
+                <h2>Informacion clara para elegir y cuidar un equipo.</h2>
+                <p>friocarib organiza temas utiles sobre climatizacion: capacidad, ubicacion, limpieza, modo de uso y senales de mantenimiento.</p>
+            </div>
+
+            <div class="info-panel">
+                <div>
+                    <h2>Uso durante el dia</h2>
+                    <p>La grafica muestra una curva de confort estimada para un espacio que se enfria de forma gradual. Es una demostracion visual para el sitio.</p>
+                    <ul class="check-list">
+                        <li><span class="icon" aria-hidden="true">OK</span><span>Contenido enfocado en climatizacion residencial y comercial ligera.</span></li>
+                        <li><span class="icon" aria-hidden="true">OK</span><span>Consejos de uso, limpieza y revision preventiva.</span></li>
+                        <li><span class="icon" aria-hidden="true">OK</span><span>Calculador visual para estimar capacidad en BTU.</span></li>
+                    </ul>
+                </div>
+                <div class="chart-wrap">
+                    <canvas id="coolingChart" aria-label="Grafica de enfriamiento durante el dia"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="guia">
+            <div class="section-header center">
+                <span class="section-kicker">Guia practica</span>
+                <h2>Temas principales de friocarib.</h2>
+                <p>El sitio queda completo con tarjetas, grafica, calculador, pasos, preguntas frecuentes y formulario.</p>
+            </div>
+
+            <div class="grid-cards">
+                <article class="card">
+                    <div class="icon-box"><span class="icon" aria-hidden="true">BTU</span></div>
+                    <h3>Capacidad correcta</h3>
+                    <p>Un equipo pequeño trabaja de mas; uno demasiado grande puede enfriar rapido pero deshumidificar peor.</p>
+                </article>
+
+                <article class="card">
+                    <div class="icon-box"><span class="icon" aria-hidden="true">AIR</span></div>
+                    <h3>Flujo de aire</h3>
+                    <p>La ubicacion y direccion de las rejillas ayudan a distribuir mejor el frio sin crear zonas incomodas.</p>
+                </article>
+
+                <article class="card">
+                    <div class="icon-box"><span class="icon" aria-hidden="true">FIL</span></div>
+                    <h3>Limpieza de filtros</h3>
+                    <p>Filtros sucios reducen el rendimiento, aumentan ruido y afectan la calidad del aire interior.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="btu">
+            <div class="section-header">
+                <span class="section-kicker">Calculador BTU</span>
+                <h2>Estima una capacidad base.</h2>
+                <p>Calcula una referencia sencilla segun area, exposicion al sol y cantidad de personas. El resultado es orientativo.</p>
+            </div>
+
+            <div class="calculator">
+                <div class="controls">
+                    <div class="form-row">
+                        <label for="area">Area del espacio</label>
+                        <div class="range-line">
+                            <input id="area" type="range" min="8" max="80" value="24">
+                            <span class="range-value"><output id="areaOut">24</output> m2</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="personas">Personas frecuentes</label>
+                        <div class="range-line">
+                            <input id="personas" type="range" min="1" max="8" value="2">
+                            <span class="range-value"><output id="personasOut">2</output></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="sol">Exposicion al sol</label>
+                        <select id="sol">
+                            <option value="0">Baja</option>
+                            <option value="1500" selected>Media</option>
+                            <option value="3000">Alta</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-primary" id="actualizar" type="button">
+                        <span class="icon" aria-hidden="true">R</span> Actualizar estimado
+                    </button>
+                </div>
+
+                <div class="result-box">
+                    <span class="section-kicker">Capacidad sugerida</span>
+                    <div class="result-number" id="btuResultado">12000</div>
+                    <p class="result-note">BTU aproximados para el espacio.</p>
+                    <div class="breakdown">
+                        <div><span>Tipo sugerido</span><b id="tipoEquipo">Split 12k</b></div>
+                        <div><span>Rango</span><b id="rangoEquipo">Habitacion media</b></div>
+                        <div><span>Sol</span><b id="solActual">Media</b></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header center">
+                <span class="section-kicker">Mantenimiento</span>
+                <h2>Cuatro cuidados basicos.</h2>
+            </div>
+
+            <div class="steps">
+                <article class="step">
+                    <span>01</span>
+                    <h3>Limpia filtros</h3>
+                    <p>Revisalos cada mes si el equipo se usa con frecuencia o hay mucho polvo.</p>
+                </article>
+                <article class="step">
+                    <span>02</span>
+                    <h3>Evita obstrucciones</h3>
+                    <p>No cubras la salida de aire con muebles, cortinas o decoracion cercana.</p>
+                </article>
+                <article class="step">
+                    <span>03</span>
+                    <h3>Revisa drenaje</h3>
+                    <p>Goteos o malos olores pueden indicar suciedad, bloqueo o falta de mantenimiento.</p>
+                </article>
+                <article class="step">
+                    <span>04</span>
+                    <h3>Programa revision</h3>
+                    <p>Una revision tecnica periodica ayuda a detectar ruido, vibracion o baja eficiencia.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <span class="section-kicker">Preguntas frecuentes</span>
+                <h2>Dudas comunes sobre aires acondicionados.</h2>
+            </div>
+
+            <div class="faq-grid">
+                <details>
+                    <summary>A que temperatura conviene usar el aire?</summary>
+                    <p>Una referencia comun de confort esta entre 23°C y 25°C, ajustando segun humedad, ropa, actividad y preferencia.</p>
+                </details>
+                <details>
+                    <summary>Cada cuanto limpiar el filtro?</summary>
+                    <p>En uso frecuente, una revision mensual es una buena base. Si hay polvo, mascotas o humedad alta, puede requerir mas frecuencia.</p>
+                </details>
+                <details>
+                    <summary>Que significa BTU?</summary>
+                    <p>Es una unidad usada para expresar capacidad de enfriamiento. A mayor area o calor interno, mayor capacidad requerida.</p>
+                </details>
+                <details>
+                    <summary>Por que el equipo gotea?</summary>
+                    <p>Puede ocurrir por drenaje obstruido, filtros sucios, instalacion con pendiente incorrecta o falta de mantenimiento.</p>
+                </details>
+            </div>
+        </section>
+
+        <section class="section" id="contacto">
+            <div class="section-header">
+                <span class="section-kicker">Contacto</span>
+                <h2>Consulta sobre climatizacion.</h2>
+                <p>Formulario local para completar la experiencia visual del sitio. No envia informacion a un servidor.</p>
+            </div>
+
+            <div class="contact-layout">
+                <form class="contact-card" id="frioForm">
+                    <div class="form-row">
+                        <label for="nombre">Nombre</label>
+                        <input id="nombre" type="text" placeholder="Ej: Andres" required>
+                    </div>
+                    <div class="form-row">
+                        <label for="correo">Correo</label>
+                        <input id="correo" type="email" placeholder="tu@correo.com" required>
+                    </div>
+                    <div class="form-row">
+                        <label for="mensaje">Consulta</label>
+                        <textarea id="mensaje" placeholder="Describe el espacio, tamano o duda sobre el equipo..." required></textarea>
+                    </div>
+                    <button class="btn btn-primary" type="submit">
+                        <span class="icon" aria-hidden="true">&gt;</span> Registrar consulta
+                    </button>
+                    <div id="formStatus"></div>
+                </form>
+
+                <aside class="contact-card contact-info">
+                    <div class="info-line">
+                        <span class="icon" aria-hidden="true">i</span>
+                        <div>
+                            <h3>Naturaleza del sitio</h3>
+                            <p>Portal informativo sobre aires acondicionados y confort termico.</p>
+                        </div>
+                    </div>
+                    <div class="info-line">
+                        <span class="icon" aria-hidden="true">AC</span>
+                        <div>
+                            <h3>Contenido</h3>
+                            <p>Capacidad, mantenimiento, filtros, instalacion y buenas practicas de uso.</p>
+                        </div>
+                    </div>
+                    <div class="info-line">
+                        <span class="icon" aria-hidden="true">~</span>
+                        <div>
+                            <h3>Enfoque</h3>
+                            <p>Informacion clara para usuarios en zonas de clima calido.</p>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo"><span class="brand-mark"><span class="icon" aria-hidden="true">*</span></span> friocarib</div>
+                <p>Sitio informativo sobre aires acondicionados, climatizacion, mantenimiento y confort termico.</p>
+            </div>
+            <div>
+                <h3>Secciones</h3>
+                <div class="footer-links">
+                    <a href="#equipos">Equipos</a>
+                    <a href="#guia">Guia</a>
+                    <a href="#btu">BTU</a>
+                </div>
+            </div>
+            <div>
+                <h3>Proyecto</h3>
+                <p>friocarib<br>Portal de climatizacion<br>Contenido informativo</p>
+            </div>
+        </div>
+        <p class="copyright">2026 friocarib. Informacion general de referencia sobre climatizacion.</p>
+    </footer>
+
+    <script>
+        window.addEventListener("load", () => {
+            document.getElementById("preloader").classList.add("hidden");
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const chartElement = document.getElementById("coolingChart");
+            const area = document.getElementById("area");
+            const personas = document.getElementById("personas");
+            const sol = document.getElementById("sol");
+            const areaOut = document.getElementById("areaOut");
+            const personasOut = document.getElementById("personasOut");
+            const btuResultado = document.getElementById("btuResultado");
+            const tipoEquipo = document.getElementById("tipoEquipo");
+            const rangoEquipo = document.getElementById("rangoEquipo");
+            const solActual = document.getElementById("solActual");
+
+            new Chart(chartElement, {
+                type: "line",
+                data: {
+                    labels: ["0 min", "15 min", "30 min", "45 min", "60 min", "90 min"],
+                    datasets: [
+                        {
+                            label: "Temperatura ambiente",
+                            data: [31, 30, 28, 27, 25, 24],
+                            borderColor: "#0ea5e9",
+                            backgroundColor: "rgba(14, 165, 233, 0.14)",
+                            borderWidth: 3,
+                            tension: 0.35,
+                            fill: true
+                        },
+                        {
+                            label: "Confort objetivo",
+                            data: [24, 24, 24, 24, 24, 24],
+                            borderColor: "#66e4c4",
+                            backgroundColor: "rgba(102, 228, 196, 0.1)",
+                            borderWidth: 3,
+                            tension: 0.2,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: "bottom",
+                            labels: { boxWidth: 14, font: { family: "Arial" } }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: context => `${context.dataset.label}: ${context.raw}°C`
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: { callback: value => `${value}°C` }
+                        }
+                    }
+                }
+            });
+
+            function redondearBTU(valor) {
+                const rangos = [9000, 12000, 18000, 24000, 36000];
+                return rangos.find(rango => valor <= rango) || 36000;
+            }
+
+            function actualizarBTU() {
+                const areaValor = Number(area.value);
+                const personasValor = Number(personas.value);
+                const solValor = Number(sol.value);
+                const estimado = redondearBTU((areaValor * 450) + (personasValor * 500) + solValor);
+
+                areaOut.textContent = areaValor;
+                personasOut.textContent = personasValor;
+                btuResultado.textContent = estimado.toLocaleString("es-CO");
+                solActual.textContent = sol.options[sol.selectedIndex].textContent;
+
+                if (estimado <= 9000) {
+                    tipoEquipo.textContent = "Split 9k";
+                    rangoEquipo.textContent = "Espacio pequeno";
+                } else if (estimado <= 12000) {
+                    tipoEquipo.textContent = "Split 12k";
+                    rangoEquipo.textContent = "Habitacion media";
+                } else if (estimado <= 18000) {
+                    tipoEquipo.textContent = "Split 18k";
+                    rangoEquipo.textContent = "Sala o cuarto amplio";
+                } else {
+                    tipoEquipo.textContent = "Equipo mayor";
+                    rangoEquipo.textContent = "Area amplia";
+                }
+            }
+
+            [area, personas, sol].forEach(control => {
+                control.addEventListener("input", actualizarBTU);
+                control.addEventListener("change", actualizarBTU);
+            });
+            document.getElementById("actualizar").addEventListener("click", actualizarBTU);
+            actualizarBTU();
+
+            document.getElementById("frioForm").addEventListener("submit", event => {
+                event.preventDefault();
+                const nombre = document.getElementById("nombre").value.trim();
+                const status = document.getElementById("formStatus");
+
+                status.style.display = "block";
+                status.textContent = `Consulta registrada localmente para ${nombre}.`;
+                event.currentTarget.reset();
+
+                setTimeout(() => {
+                    status.style.display = "none";
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html>
