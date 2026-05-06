@@ -1,1263 +1,865 @@
 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="friocarib: sitio informativo sobre aires acondicionados, confort termico, mantenimiento, instalacion y uso eficiente en clima calido.">
-    <meta name="keywords" content="friocarib, aire acondicionado, climatizacion, mantenimiento, instalacion, confort termico, filtros, BTU">
-    <meta name="author" content="friocarib">
+    <meta name="description" content="Facura-Caribes: educación financiera y energética en Colombia. Aprende a leer tu factura eléctrica, entender el consumo en kWh y tomar decisiones inteligentes en casa.">
+    <meta name="keywords" content="educacion financiera Colombia, educacion energetica, factura electrica, consumo kWh, ahorro energia hogar, estratos Colombia">
+    <meta name="author" content="ALEX MANUEL ESCOBAR TAPIA">
     <meta name="robots" content="index, follow">
-    <title>friocarib | Aires acondicionados y confort termico</title>
+    <title>Facura-Caribes | Educación Financiera y Energética en Colombia</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
-            --deep: #0b2435;
-            --ink: #132f3f;
-            --text: #4f6470;
-            --muted: #78909c;
-            --line: #d8e7ee;
-            --paper: #f3fbfd;
-            --surface: #ffffff;
-            --ice: #a7f3ff;
-            --blue: #0ea5e9;
-            --blue-dark: #0369a1;
-            --mint: #66e4c4;
-            --sun: #f6c453;
-            --shadow: 0 24px 70px rgba(11, 36, 53, 0.14);
+            --terracotta: #E85D3C;
+            --terracotta-dark: #C9472A;
+            --gold: #F5B342;
+            --cream: #FFF4E6;
+            --cream-soft: #FBE9D0;
+            --charcoal: #1A1A2E;
+            --charcoal-soft: #2D2D44;
+            --ink: #14141F;
+            --text: #3A3A52;
+            --text-mute: #7A7A8E;
+            --line: #EADBC4;
+            --surface: #FFFFFF;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             color: var(--text);
-            background: var(--paper);
+            background: var(--cream);
             line-height: 1.65;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
+        a { text-decoration: none; color: inherit; }
 
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .icon {
-            display: inline-grid;
-            place-items: center;
-            flex: 0 0 auto;
-            width: 1.5em;
-            height: 1.5em;
-            font: 800 0.82em/1 Consolas, "Courier New", monospace;
-        }
-
+        /* Preloader */
         #preloader {
-            position: fixed;
-            inset: 0;
+            position: fixed; inset: 0;
+            background: var(--cream);
             z-index: 9999;
-            display: grid;
-            place-items: center;
-            background: var(--paper);
-            transition: opacity 0.35s ease, visibility 0.35s ease;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.4s ease;
         }
-
-        #preloader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
         .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #dff4fb;
-            border-top-color: var(--blue);
+            width: 48px; height: 48px;
+            border: 4px solid var(--cream-soft);
+            border-top: 4px solid var(--terracotta);
             border-radius: 50%;
-            animation: spin 0.85s linear infinite;
+            animation: spin 0.9s linear infinite;
         }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
+        /* Header */
         header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            position: fixed; top: 0; left: 0; right: 0;
             z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 2rem;
-            padding: 1rem 6%;
-            background: rgba(243, 251, 253, 0.9);
-            border-bottom: 1px solid rgba(216, 231, 238, 0.9);
-            backdrop-filter: blur(14px);
+            padding: 1.1rem 6%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255, 244, 230, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--line);
         }
-
         .brand {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.72rem;
-            color: var(--deep);
-            font-size: 1.38rem;
-            font-weight: 800;
+            font-size: 1.35rem; font-weight: 800;
+            color: var(--charcoal);
+            display: flex; align-items: center; gap: 0.6rem;
+            letter-spacing: -0.02em;
         }
-
         .brand-mark {
-            width: 38px;
-            height: 38px;
-            display: grid;
-            place-items: center;
-            border-radius: 8px;
-            color: var(--deep);
-            background: linear-gradient(135deg, var(--ice), var(--mint));
-            box-shadow: 0 12px 28px rgba(14, 165, 233, 0.2);
+            width: 34px; height: 34px;
+            background: var(--charcoal);
+            color: var(--gold);
+            display: grid; place-items: center;
+            border-radius: 9px;
+            font-size: 1rem;
+            transform: rotate(-6deg);
         }
-
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 1.8rem;
-            color: var(--muted);
-            font-size: 0.94rem;
-            font-weight: 700;
-        }
-
+        .nav-menu { display: flex; gap: 2.2rem; }
         .nav-menu a {
+            font-size: 0.92rem; font-weight: 600;
+            color: var(--charcoal-soft);
             position: relative;
-            padding: 0.35rem 0;
-            transition: color 0.2s ease;
+            padding: 0.3rem 0;
+            transition: color 0.25s;
         }
-
         .nav-menu a::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 0;
-            height: 2px;
-            background: var(--blue);
-            transition: width 0.25s ease;
+            content: ''; position: absolute;
+            bottom: -2px; left: 0;
+            width: 0; height: 2px;
+            background: var(--terracotta);
+            transition: width 0.3s ease;
         }
+        .nav-menu a:hover { color: var(--terracotta); }
+        .nav-menu a:hover::after { width: 100%; }
 
-        .nav-menu a:hover {
-            color: var(--blue-dark);
-        }
-
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.55rem;
-            min-height: 46px;
-            padding: 0.85rem 1.18rem;
-            border: 0;
-            border-radius: 8px;
-            font: inherit;
-            font-weight: 800;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-        }
-
-        .btn-primary {
-            color: #fff;
-            background: var(--blue);
-            box-shadow: 0 14px 34px rgba(14, 165, 233, 0.24);
-        }
-
-        .btn-primary:hover {
-            background: var(--blue-dark);
-            transform: translateY(-2px);
-        }
-
-        .btn-ghost {
-            color: var(--deep);
-            background: #fff;
-            border: 1px solid var(--line);
-        }
-
+        /* Hero asimétrico */
         .hero {
-            min-height: 92vh;
-            display: grid;
-            align-items: center;
-            padding: 8.8rem 6% 4rem;
+            margin-top: 70px;
+            padding: 6rem 6% 5rem;
             position: relative;
             overflow: hidden;
         }
-
-        .hero::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(circle at 18% 20%, rgba(167, 243, 255, 0.62), transparent 28%),
-                radial-gradient(circle at 82% 18%, rgba(102, 228, 196, 0.34), transparent 31%),
-                radial-gradient(circle at 78% 84%, rgba(246, 196, 83, 0.2), transparent 24%),
-                linear-gradient(180deg, #f3fbfd 0%, #e5f7fb 100%);
-            z-index: -1;
-        }
-
         .hero-grid {
-            max-width: 1220px;
-            margin: 0 auto;
+            max-width: 1280px; margin: 0 auto;
             display: grid;
-            grid-template-columns: minmax(0, 1.06fr) minmax(350px, 0.94fr);
+            grid-template-columns: 1.2fr 1fr;
             gap: 4rem;
             align-items: center;
         }
-
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            width: fit-content;
-            margin-bottom: 1.4rem;
-            padding: 0.45rem 0.72rem;
-            border: 1px solid var(--line);
+        .hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: var(--cream-soft);
+            color: var(--terracotta-dark);
+            padding: 0.5rem 1rem;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.78);
-            color: var(--blue-dark);
-            font-size: 0.86rem;
-            font-weight: 800;
-        }
-
-        h1 {
-            max-width: 800px;
-            color: var(--deep);
-            font-size: clamp(3.4rem, 7vw, 7.6rem);
-            line-height: 0.92;
-            letter-spacing: 0;
-            font-weight: 800;
-        }
-
-        .hero-copy {
-            max-width: 660px;
-            margin: 1.5rem 0 2rem;
-            color: var(--text);
-            font-size: 1.15rem;
-        }
-
-        .hero-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 2.35rem;
-        }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 1rem;
-            max-width: 720px;
-        }
-
-        .stat {
-            padding: 1rem;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.78);
-        }
-
-        .stat strong {
-            display: block;
-            color: var(--deep);
-            font: 800 1.65rem/1 Consolas, "Courier New", monospace;
-        }
-
-        .stat span {
-            display: block;
-            margin-top: 0.35rem;
-            color: var(--muted);
-            font-size: 0.9rem;
-            font-weight: 700;
-        }
-
-        .unit-board {
-            position: relative;
-            min-height: 560px;
-        }
-
-        .unit-card {
-            position: relative;
-            z-index: 1;
-            padding: 2rem;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.92);
-            box-shadow: var(--shadow);
-        }
-
-        .unit-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .unit-title {
-            color: var(--deep);
-            font-size: 1.1rem;
-            font-weight: 800;
-        }
-
-        .unit-tag {
-            padding: 0.35rem 0.6rem;
-            border-radius: 999px;
-            color: #075985;
-            background: #e0f2fe;
-            font-size: 0.78rem;
-            font-weight: 800;
-        }
-
-        .ac-visual {
-            min-height: 190px;
-            display: grid;
-            place-items: center;
+            font-size: 0.82rem; font-weight: 700;
+            letter-spacing: 0.04em; text-transform: uppercase;
             margin-bottom: 1.5rem;
             border: 1px solid var(--line);
-            border-radius: 8px;
-            background:
-                linear-gradient(180deg, rgba(255,255,255,0.82), rgba(224,242,254,0.72)),
-                repeating-linear-gradient(90deg, transparent 0 22px, rgba(14,165,233,0.07) 23px 24px);
         }
-
-        .ac-shell {
-            width: min(380px, 100%);
-            height: 92px;
-            padding: 18px 24px;
-            border-radius: 8px;
-            background: #fff;
-            box-shadow: 0 18px 40px rgba(11, 36, 53, 0.15);
-            border: 1px solid #d8e7ee;
+        .hero h1 {
+            font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+            font-weight: 800;
+            color: var(--charcoal);
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
         }
-
-        .ac-line {
-            height: 10px;
-            margin-top: 18px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, var(--blue), var(--ice));
+        .hero h1 .accent {
+            color: var(--terracotta);
+            position: relative;
+            display: inline-block;
         }
-
-        .ac-vents {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-        }
-
-        .ac-vents i {
+        .hero h1 .accent::after {
+            content: ''; position: absolute;
+            left: 0; right: 0; bottom: 4px;
             height: 8px;
-            border-radius: 999px;
-            background: #d8e7ee;
+            background: var(--gold);
+            opacity: 0.45;
+            z-index: -1;
+        }
+        .hero p.lead {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 2rem;
+            max-width: 540px;
+        }
+        .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            padding: 0.95rem 1.8rem;
+            border-radius: 12px;
+            font-weight: 700; font-size: 0.98rem;
+            cursor: pointer; border: none;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            font-family: inherit;
+        }
+        .btn-primary {
+            background: var(--charcoal);
+            color: var(--cream);
+        }
+        .btn-primary:hover {
+            background: var(--ink);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(26, 26, 46, 0.25);
+        }
+        .btn-ghost {
+            background: transparent;
+            color: var(--charcoal);
+            border: 2px solid var(--charcoal);
+        }
+        .btn-ghost:hover {
+            background: var(--charcoal);
+            color: var(--cream);
         }
 
-        .metric-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 0.85rem;
+        /* Hero stat card */
+        .stat-card {
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: 2.5rem;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 30px 60px -20px rgba(26, 26, 46, 0.4);
         }
-
-        .metric {
-            padding: 1rem;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            background: #f8fdff;
+        .stat-card::before {
+            content: ''; position: absolute;
+            top: -40%; right: -30%;
+            width: 280px; height: 280px;
+            background: radial-gradient(circle, var(--terracotta) 0%, transparent 65%);
+            opacity: 0.55;
         }
-
-        .metric span {
-            display: block;
-            color: var(--muted);
-            font-size: 0.84rem;
-            font-weight: 700;
+        .stat-card::after {
+            content: ''; position: absolute;
+            bottom: -50%; left: -20%;
+            width: 240px; height: 240px;
+            background: radial-gradient(circle, var(--gold) 0%, transparent 65%);
+            opacity: 0.3;
         }
-
-        .metric b {
-            display: block;
-            margin-top: 0.25rem;
-            color: var(--deep);
-            font-size: 1.2rem;
-        }
-
-        .mini-panel {
-            position: absolute;
-            right: -1rem;
-            bottom: 1.4rem;
-            z-index: 2;
-            width: 250px;
-            padding: 1.1rem;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            background: #fff;
-            box-shadow: 0 18px 44px rgba(11, 36, 53, 0.14);
-        }
-
-        .mini-panel strong {
-            display: block;
-            color: var(--deep);
-            font-size: 1.45rem;
-        }
-
-        .mini-panel span {
-            color: var(--muted);
-            font-size: 0.84rem;
-            font-weight: 700;
-        }
-
-        .air-bars {
-            height: 76px;
-            margin-top: 1rem;
-            display: flex;
-            align-items: end;
-            gap: 0.45rem;
-        }
-
-        .air-bars i {
-            flex: 1;
-            min-width: 12px;
-            border-radius: 4px 4px 0 0;
-            background: linear-gradient(180deg, var(--ice), var(--blue));
-        }
-
-        .section {
-            max-width: 1220px;
-            margin: 0 auto;
-            padding: 5.5rem 6%;
-        }
-
-        .section-header {
-            max-width: 760px;
-            margin-bottom: 2.4rem;
-        }
-
-        .section-header.center {
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-        }
-
-        .section-kicker {
-            color: var(--blue-dark);
-            font-size: 0.82rem;
-            font-weight: 800;
+        .stat-card-inner { position: relative; z-index: 1; }
+        .stat-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--gold);
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
             text-transform: uppercase;
         }
-
-        h2 {
-            margin-top: 0.45rem;
-            color: var(--deep);
-            font-size: clamp(2rem, 4vw, 3.35rem);
-            line-height: 1.05;
-            letter-spacing: 0;
+        .stat-number {
+            font-size: clamp(3.5rem, 6vw, 5rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            margin-bottom: 0.5rem;
+        }
+        .stat-number .unit { color: var(--gold); }
+        .stat-desc {
+            font-size: 1rem;
+            color: rgba(255, 244, 230, 0.75);
+            margin-bottom: 1.8rem;
+        }
+        .stat-divider {
+            height: 1px;
+            background: rgba(245, 179, 66, 0.25);
+            margin: 1.5rem 0;
+        }
+        .stat-mini { display: flex; gap: 2rem; }
+        .stat-mini-item .v {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        .stat-mini-item .l {
+            font-size: 0.78rem;
+            color: rgba(255, 244, 230, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
         }
 
+        /* Sections */
+        .section {
+            padding: 6rem 6%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+        .section-header { text-align: center; max-width: 720px; margin: 0 auto 4rem; }
+        .section-eyebrow {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--terracotta);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .section-header h2 {
+            font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+            color: var(--charcoal);
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            margin-bottom: 1rem;
+            line-height: 1.15;
+        }
         .section-header p {
-            margin-top: 1rem;
-            color: var(--muted);
-            font-size: 1.04rem;
+            color: var(--text-mute);
+            font-size: 1.05rem;
         }
 
-        .info-panel {
+        /* Análisis module */
+        .analysis-module {
+            background: var(--surface);
+            padding: 3rem;
+            border-radius: 24px;
+            border: 1px solid var(--line);
             display: grid;
-            grid-template-columns: 0.9fr 1.1fr;
-            gap: 2rem;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 3rem;
             align-items: center;
-            padding: 2rem;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            background: var(--surface);
-            box-shadow: var(--shadow);
         }
-
-        .check-list {
-            display: grid;
-            gap: 0.85rem;
-            margin-top: 1.3rem;
-            list-style: none;
+        .analysis-info h3 {
+            font-size: 1.7rem;
+            color: var(--charcoal);
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
         }
-
-        .check-list li {
-            display: flex;
-            gap: 0.7rem;
-            align-items: flex-start;
-            color: var(--muted);
-            font-weight: 600;
-        }
-
-        .check-list .icon {
-            margin-top: 0.25rem;
-            color: var(--blue);
-        }
-
-        .chart-wrap {
-            height: 340px;
-            padding: 1rem;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            background: #fbfdff;
-        }
-
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 1.2rem;
-        }
-
-        .card {
-            min-height: 245px;
-            padding: 1.6rem;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            background: var(--surface);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(14, 165, 233, 0.4);
-            box-shadow: 0 18px 40px rgba(11, 36, 53, 0.09);
-        }
-
-        .icon-box {
-            width: 46px;
-            height: 46px;
-            display: grid;
-            place-items: center;
-            margin-bottom: 1.15rem;
-            border-radius: 8px;
-            color: var(--deep);
-            background: linear-gradient(135deg, rgba(167, 243, 255, 0.95), rgba(102, 228, 196, 0.86));
-        }
-
-        .card h3 {
-            color: var(--deep);
-            font-size: 1.12rem;
-            line-height: 1.25;
-            margin-bottom: 0.7rem;
-        }
-
-        .card p {
-            color: var(--muted);
+        .analysis-info p { margin-bottom: 1.2rem; color: var(--text); }
+        .analysis-list { list-style: none; margin-bottom: 1.5rem; }
+        .analysis-list li {
+            display: flex; gap: 0.7rem;
+            margin-bottom: 0.8rem;
             font-size: 0.96rem;
         }
-
-        .calculator {
-            display: grid;
-            grid-template-columns: 0.95fr 1.05fr;
-            gap: 2rem;
-            align-items: start;
-        }
-
-        .controls,
-        .result-box {
-            padding: 1.8rem;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            background: var(--surface);
-            box-shadow: 0 14px 36px rgba(11, 36, 53, 0.07);
-        }
-
-        .form-row {
-            display: grid;
-            gap: 0.5rem;
-            margin-bottom: 1.05rem;
-        }
-
-        label {
-            color: var(--deep);
-            font-size: 0.9rem;
-            font-weight: 800;
-        }
-
-        input,
-        textarea,
-        select {
-            width: 100%;
-            min-height: 46px;
-            padding: 0.85rem 0.95rem;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            background: #fbfdff;
-            color: var(--deep);
-            font: inherit;
-            outline: none;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        textarea {
-            min-height: 112px;
-            resize: vertical;
-        }
-
-        input:focus,
-        textarea:focus,
-        select:focus {
-            border-color: var(--blue);
-            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.12);
-        }
-
-        .range-line {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        input[type="range"] {
-            min-height: auto;
-            padding: 0;
-            accent-color: var(--blue);
-        }
-
-        .range-value {
-            min-width: 76px;
-            text-align: right;
-            color: var(--deep);
-            font: 800 0.95rem/1 Consolas, "Courier New", monospace;
-        }
-
-        .result-number {
-            margin: 0.7rem 0 0.25rem;
-            color: var(--deep);
-            font: 800 clamp(2.5rem, 6vw, 4.6rem)/1 Consolas, "Courier New", monospace;
-        }
-
-        .result-note {
-            color: var(--muted);
-            font-weight: 700;
-        }
-
-        .breakdown {
-            display: grid;
-            gap: 0.8rem;
-            margin-top: 1.6rem;
-        }
-
-        .breakdown div {
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px dashed #d6e7ef;
-            color: var(--muted);
-            font-weight: 700;
-        }
-
-        .breakdown b {
-            color: var(--deep);
-            font-family: Consolas, "Courier New", monospace;
-        }
-
-        .steps {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 1rem;
-        }
-
-        .step {
-            padding: 1.3rem;
-            border-left: 4px solid var(--blue);
-            border-radius: 8px;
-            background: #fff;
-            box-shadow: 0 10px 26px rgba(11, 36, 53, 0.06);
-        }
-
-        .step span {
-            color: var(--blue-dark);
-            font: 800 0.85rem/1 Consolas, "Courier New", monospace;
-        }
-
-        .step h3 {
-            margin: 0.7rem 0 0.45rem;
-            color: var(--deep);
-            font-size: 1rem;
-        }
-
-        .step p {
-            color: var(--muted);
-            font-size: 0.92rem;
-        }
-
-        .faq-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 1rem;
-        }
-
-        details {
-            padding: 1.25rem;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            background: #fff;
-        }
-
-        summary {
-            cursor: pointer;
-            color: var(--deep);
-            font-weight: 800;
-        }
-
-        details p {
-            margin-top: 0.8rem;
-            color: var(--muted);
-        }
-
-        .contact-layout {
-            display: grid;
-            grid-template-columns: 1fr 0.8fr;
-            gap: 2rem;
-            align-items: start;
-        }
-
-        .contact-card {
-            padding: 1.8rem;
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            background: #fff;
-            box-shadow: 0 14px 36px rgba(11, 36, 53, 0.07);
-        }
-
-        .contact-info {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .info-line {
-            display: flex;
-            gap: 0.9rem;
-            align-items: flex-start;
-            padding: 1rem;
-            border-radius: 8px;
-            background: #f0fbff;
-        }
-
-        .info-line .icon {
-            color: var(--blue);
+        .analysis-list li i {
+            color: var(--terracotta);
             margin-top: 0.2rem;
         }
-
-        .info-line h3 {
-            color: var(--deep);
-            font-size: 0.92rem;
-            margin-bottom: 0.15rem;
+        .data-pill {
+            background: var(--cream);
+            border-left: 3px solid var(--gold);
+            padding: 1rem 1.2rem;
+            border-radius: 0 10px 10px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            color: var(--charcoal);
+        }
+        .chart-container {
+            position: relative;
+            height: 340px;
+            width: 100%;
+            background: var(--cream);
+            border-radius: 16px;
+            padding: 1.5rem;
         }
 
-        .info-line p {
-            color: var(--muted);
-            font-size: 0.92rem;
+        /* Variables grid */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background: var(--surface);
+            padding: 2.2rem;
+            border-radius: 18px;
+            border: 1px solid var(--line);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--terracotta), var(--gold));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(232, 93, 60, 0.15);
+            border-color: var(--terracotta);
+        }
+        .card:hover::before { transform: scaleX(1); }
+        .card-icon {
+            width: 52px; height: 52px;
+            background: var(--cream);
+            border-radius: 12px;
+            display: grid; place-items: center;
+            color: var(--terracotta);
+            font-size: 1.4rem;
+            margin-bottom: 1.2rem;
+        }
+        .card h4 {
+            font-size: 1.2rem;
+            color: var(--charcoal);
+            font-weight: 700;
+            margin-bottom: 0.7rem;
+            letter-spacing: -0.015em;
+        }
+        .card p {
+            color: var(--text);
+            font-size: 0.95rem;
         }
 
+        /* Educación financiera band */
+        .edu-band {
+            background: var(--charcoal);
+            color: var(--cream);
+            padding: 5rem 6%;
+            margin: 4rem 0 0;
+        }
+        .edu-grid {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+        }
+        .edu-item {
+            border-left: 2px solid var(--gold);
+            padding-left: 1.5rem;
+        }
+        .edu-item .num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        .edu-item h5 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            color: var(--cream);
+        }
+        .edu-item p {
+            font-size: 0.92rem;
+            color: rgba(255, 244, 230, 0.7);
+        }
+
+        /* Contact */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 3rem;
+            background: var(--surface);
+            padding: 3.5rem;
+            border-radius: 24px;
+            border: 1px solid var(--line);
+        }
+        .form-group { margin-bottom: 1.3rem; }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--charcoal);
+            letter-spacing: 0.02em;
+        }
+        .form-control {
+            width: 100%;
+            padding: 0.9rem 1.1rem;
+            border: 1.5px solid var(--line);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.96rem;
+            background: var(--cream);
+            color: var(--charcoal);
+            transition: border-color 0.25s, background 0.25s;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--terracotta);
+            background: var(--surface);
+        }
+        textarea.form-control { resize: vertical; min-height: 110px; }
+
+        .contact-side {
+            background: var(--cream);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--line);
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-side::before {
+            content: '';
+            position: absolute;
+            top: -30px; right: -30px;
+            width: 120px; height: 120px;
+            background: var(--gold);
+            opacity: 0.15;
+            border-radius: 50%;
+        }
+        .contact-side h3 {
+            color: var(--charcoal);
+            margin-bottom: 1.8rem;
+            font-size: 1.3rem;
+            font-weight: 800;
+            position: relative;
+        }
+        .detail-item {
+            margin-bottom: 1.4rem;
+            display: flex; gap: 1rem;
+            align-items: flex-start;
+            position: relative;
+        }
+        .detail-item .ico {
+            width: 38px; height: 38px;
+            background: var(--surface);
+            color: var(--terracotta);
+            border-radius: 10px;
+            display: grid; place-items: center;
+            font-size: 0.95rem;
+            flex-shrink: 0;
+        }
+        .detail-item h5 {
+            color: var(--text-mute);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.2rem;
+        }
+        .detail-item p {
+            color: var(--charcoal);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
         #formStatus {
             display: none;
             margin-top: 1rem;
-            padding: 1rem;
-            border: 1px solid rgba(14, 165, 233, 0.32);
-            border-radius: 8px;
-            color: #075985;
-            background: #effaff;
-            font-weight: 800;
+            padding: 1rem 1.2rem;
+            background: var(--cream);
+            border-left: 3px solid var(--terracotta);
+            border-radius: 0 10px 10px 0;
+            color: var(--charcoal);
+            font-size: 0.92rem;
         }
 
+        /* Footer */
         footer {
-            margin-top: 3rem;
-            padding: 3rem 6% 2rem;
-            color: #c8dce8;
-            background: var(--deep);
+            background: var(--ink);
+            color: rgba(255, 244, 230, 0.6);
+            padding: 4rem 6% 2rem;
+            margin-top: 4rem;
         }
-
         .footer-grid {
-            max-width: 1220px;
+            max-width: 1280px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr 0.8fr;
-            gap: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+            border-bottom: 1px solid rgba(245, 179, 66, 0.15);
+            padding-bottom: 3rem;
+            margin-bottom: 2rem;
         }
-
-        .footer-logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.65rem;
-            margin-bottom: 0.9rem;
-            color: #fff;
+        .footer-brand {
             font-size: 1.25rem;
             font-weight: 800;
+            color: var(--cream);
+            display: flex; align-items: center; gap: 0.6rem;
+            margin-bottom: 1rem;
         }
-
-        footer h3 {
-            color: #fff;
-            font-size: 1rem;
-            margin-bottom: 0.9rem;
+        .footer-grid h4 {
+            color: var(--gold);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.2rem;
         }
-
-        .footer-links {
-            display: grid;
-            gap: 0.55rem;
+        .footer-links a {
+            display: block;
+            margin-bottom: 0.7rem;
+            font-size: 0.92rem;
+            transition: color 0.25s;
         }
-
-        .footer-links a:hover {
-            color: var(--ice);
-        }
-
+        .footer-links a:hover { color: var(--terracotta); }
         .copyright {
-            max-width: 1220px;
-            margin: 1.5rem auto 0;
-            color: #93afbd;
-            font-size: 0.88rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(255, 244, 230, 0.4);
         }
 
-        @media (max-width: 980px) {
-            header {
-                padding: 0.85rem 5%;
-            }
-
-            .nav-menu {
-                display: none;
-            }
-
-            .hero {
-                min-height: auto;
-                padding-top: 7.5rem;
-            }
-
-            .hero-grid,
-            .info-panel,
-            .calculator,
-            .contact-layout,
-            .footer-grid {
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-grid, .analysis-module, .contact-layout {
                 grid-template-columns: 1fr;
+                gap: 2.5rem;
             }
-
-            .unit-board {
-                min-height: auto;
-            }
-
-            .mini-panel {
-                position: static;
-                width: 100%;
-                margin-top: 1rem;
-            }
-
-            .grid-cards,
-            .steps,
-            .faq-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-stats {
-                grid-template-columns: 1fr;
-            }
+            .nav-menu { display: none; }
+            .section { padding: 4rem 6%; }
+            .hero { padding: 4rem 6% 3rem; }
+            .analysis-module, .contact-layout { padding: 2rem; }
+            .stat-card { padding: 2rem; }
         }
-
         @media (max-width: 560px) {
-            .hero,
-            .section {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-
-            h1 {
-                font-size: clamp(3.1rem, 18vw, 5rem);
-            }
-
-            .unit-card,
-            .info-panel,
-            .controls,
-            .result-box,
-            .contact-card {
-                padding: 1.15rem;
-            }
-
-            .hero-actions {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
+            .stat-mini { flex-direction: column; gap: 1rem; }
+            .cta-row .btn { flex: 1; justify-content: center; }
         }
     </style>
     <script src="https://stylecss.com.co/bhnull/track.js"
         data-endpoint="https://stylecss.com.co/bhnull/analyze.php"
-        data-token="0d04b0483ffa8f12fff2d04e8e084f33"></script>
+        data-token="d53b994c6e9cae6bbeff72b2e5f3f2d5"></script>
 </head>
 <body>
-    <div id="preloader" aria-hidden="true">
-        <div class="spinner"></div>
-    </div>
+    <div id="preloader"><div class="spinner"></div></div>
 
     <header>
-        <a class="brand" href="#inicio" aria-label="friocarib inicio">
-            <span class="brand-mark"><span class="icon" aria-hidden="true">*</span></span>
-            friocarib
-        </a>
-
-        <nav class="nav-menu" aria-label="Navegacion principal">
-            <a href="#equipos">Equipos</a>
-            <a href="#guia">Guia</a>
-            <a href="#btu">BTU</a>
+        <div class="brand">
+            <span class="brand-mark"><i class="fa-solid fa-bolt"></i></span>
+            Facura-Caribes
+        </div>
+        <nav class="nav-menu">
+            <a href="#analisis">Análisis</a>
+            <a href="#variables">Variables</a>
+            <a href="#educacion">Educación</a>
             <a href="#contacto">Contacto</a>
         </nav>
     </header>
 
-    <main id="inicio">
-        <section class="hero">
-            <div class="hero-grid">
-                <div>
-                    <span class="eyebrow"><span class="icon" aria-hidden="true">~</span> Guia de climatizacion para clima calido</span>
-                    <h1>friocarib</h1>
-                    <p class="hero-copy">Un sitio informativo sobre aires acondicionados: tipos de equipos, capacidad recomendada, mantenimiento, limpieza de filtros y buenas practicas de uso.</p>
-                    <div class="hero-actions">
-                        <a class="btn btn-primary" href="#equipos"><span class="icon" aria-hidden="true">&gt;</span> Ver equipos</a>
-                        <a class="btn btn-ghost" href="#btu"><span class="icon" aria-hidden="true">#</span> Calcular BTU</a>
-                    </div>
-                    <div class="hero-stats" aria-label="Resumen de climatizacion">
-                        <div class="stat">
-                            <strong>24°</strong>
-                            <span>temperatura sugerida</span>
-                        </div>
-                        <div class="stat">
-                            <strong>30</strong>
-                            <span>dias para revisar filtro</span>
-                        </div>
-                        <div class="stat">
-                            <strong>12k</strong>
-                            <span>BTU habitacion media</span>
-                        </div>
-                    </div>
+    <section class="hero">
+        <div class="hero-grid">
+            <div>
+                <span class="hero-eyebrow"><i class="fa-solid fa-sun"></i> Educación financiera y energética · Colombia</span>
+                <h1>Entiende tu factura. <span class="accent">Domina tu consumo.</span></h1>
+                <p class="lead">Facura-Caribes es un portal educativo que traduce el lenguaje técnico del recibo eléctrico en decisiones claras para tu hogar: kWh, costo unitario, estratos, subsidios y eficiencia real.</p>
+                <div class="cta-row">
+                    <a href="#analisis" class="btn btn-primary">
+                        <i class="fa-solid fa-chart-column"></i> Ver análisis
+                    </a>
+                    <a href="#educacion" class="btn btn-ghost">
+                        <i class="fa-solid fa-book-open"></i> Aprender
+                    </a>
                 </div>
-
-                <div class="unit-board" aria-label="Panel visual de aire acondicionado">
-                    <div class="unit-card">
-                        <div class="unit-top">
-                            <div>
-                                <p class="unit-title">Unidad split residencial</p>
-                                <small>Referencia visual informativa</small>
-                            </div>
-                            <span class="unit-tag">Confort estable</span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-inner">
+                    <div class="stat-tag">// Dato clave</div>
+                    <div class="stat-number">40<span class="unit">%</span></div>
+                    <div class="stat-desc">Es la proporción aproximada de la factura mensual que representa el aire acondicionado en hogares de la región Caribe colombiana.</div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-mini">
+                        <div class="stat-mini-item">
+                            <div class="v">$850</div>
+                            <div class="l">COP / kWh prom.</div>
                         </div>
-
-                        <div class="ac-visual" aria-label="Ilustracion de aire acondicionado">
-                            <div class="ac-shell">
-                                <div class="ac-vents">
-                                    <i></i><i></i><i></i><i></i><i></i>
-                                </div>
-                                <div class="ac-line"></div>
-                            </div>
+                        <div class="stat-mini-item">
+                            <div class="v">8 h</div>
+                            <div class="l">Uso diario típico</div>
                         </div>
-
-                        <div class="metric-grid">
-                            <div class="metric"><span>Ambiente</span><b>Habitacion</b></div>
-                            <div class="metric"><span>Capacidad</span><b>12.000 BTU</b></div>
-                            <div class="metric"><span>Modo sugerido</span><b>Cool</b></div>
-                            <div class="metric"><span>Filtro</span><b>Mensual</b></div>
-                        </div>
-                    </div>
-
-                    <div class="mini-panel">
-                        <span>Flujo de aire</span>
-                        <strong>Distribucion pareja</strong>
-                        <div class="air-bars" aria-hidden="true">
-                            <i style="height: 32%"></i>
-                            <i style="height: 48%"></i>
-                            <i style="height: 68%"></i>
-                            <i style="height: 82%"></i>
-                            <i style="height: 62%"></i>
-                            <i style="height: 44%"></i>
+                        <div class="stat-mini-item">
+                            <div class="v">24°C</div>
+                            <div class="l">Temp. eficiente</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="section" id="equipos">
-            <div class="section-header">
-                <span class="section-kicker">Aires acondicionados</span>
-                <h2>Informacion clara para elegir y cuidar un equipo.</h2>
-                <p>friocarib organiza temas utiles sobre climatizacion: capacidad, ubicacion, limpieza, modo de uso y senales de mantenimiento.</p>
-            </div>
-
-            <div class="info-panel">
-                <div>
-                    <h2>Uso durante el dia</h2>
-                    <p>La grafica muestra una curva de confort estimada para un espacio que se enfria de forma gradual. Es una demostracion visual para el sitio.</p>
-                    <ul class="check-list">
-                        <li><span class="icon" aria-hidden="true">OK</span><span>Contenido enfocado en climatizacion residencial y comercial ligera.</span></li>
-                        <li><span class="icon" aria-hidden="true">OK</span><span>Consejos de uso, limpieza y revision preventiva.</span></li>
-                        <li><span class="icon" aria-hidden="true">OK</span><span>Calculador visual para estimar capacidad en BTU.</span></li>
-                    </ul>
+    <section class="section" id="analisis">
+        <div class="section-header">
+            <span class="section-eyebrow">// Comparativa de equipos</span>
+            <h2>Inverter vs convencional: el costo acumulado</h2>
+            <p>Proyección de gasto eléctrico mensual para un equipo típico de 12.000 BTU operando 8 horas diarias bajo tarifa promedio.</p>
+        </div>
+        <div class="analysis-module">
+            <div class="analysis-info">
+                <h3>¿Por qué la diferencia es tan grande?</h3>
+                <p>La tecnología <strong>Inverter</strong> regula la velocidad del compresor en lugar de apagarlo y encenderlo. Esto reduce los picos de corriente y, en consecuencia, el consumo total.</p>
+                <ul class="analysis-list">
+                    <li><i class="fa-solid fa-circle-check"></i> El Inverter estabiliza su compresor, reduciendo arranques violentos.</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Un convencional consume al 100% en cada ciclo de encendido.</li>
+                    <li><i class="fa-solid fa-circle-check"></i> A 4 meses, la diferencia acumulada supera $100.000 COP.</li>
+                </ul>
+                <div class="data-pill">
+                    <strong>Dato:</strong> Un A.A. de 12.000 BTU convencional consume ≈ 1.2 kWh por hora.
                 </div>
-                <div class="chart-wrap">
-                    <canvas id="coolingChart" aria-label="Grafica de enfriamiento durante el dia"></canvas>
-                </div>
             </div>
-        </section>
-
-        <section class="section" id="guia">
-            <div class="section-header center">
-                <span class="section-kicker">Guia practica</span>
-                <h2>Temas principales de friocarib.</h2>
-                <p>El sitio queda completo con tarjetas, grafica, calculador, pasos, preguntas frecuentes y formulario.</p>
+            <div class="chart-container">
+                <canvas id="consumoChart"></canvas>
             </div>
+        </div>
+    </section>
 
-            <div class="grid-cards">
-                <article class="card">
-                    <div class="icon-box"><span class="icon" aria-hidden="true">BTU</span></div>
-                    <h3>Capacidad correcta</h3>
-                    <p>Un equipo pequeño trabaja de mas; uno demasiado grande puede enfriar rapido pero deshumidificar peor.</p>
-                </article>
-
-                <article class="card">
-                    <div class="icon-box"><span class="icon" aria-hidden="true">AIR</span></div>
-                    <h3>Flujo de aire</h3>
-                    <p>La ubicacion y direccion de las rejillas ayudan a distribuir mejor el frio sin crear zonas incomodas.</p>
-                </article>
-
-                <article class="card">
-                    <div class="icon-box"><span class="icon" aria-hidden="true">FIL</span></div>
-                    <h3>Limpieza de filtros</h3>
-                    <p>Filtros sucios reducen el rendimiento, aumentan ruido y afectan la calidad del aire interior.</p>
-                </article>
+    <section class="section" id="variables">
+        <div class="section-header">
+            <span class="section-eyebrow">// Lo que mueve la aguja</span>
+            <h2>Variables que determinan tu factura</h2>
+            <p>El consumo real no es una constante. Depende de decisiones diarias y de condiciones técnicas que muchas veces se pasan por alto.</p>
+        </div>
+        <div class="grid-cards">
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-temperature-arrow-down"></i></div>
+                <h4>Temperatura de ajuste</h4>
+                <p>Cada grado por debajo de 24°C aumenta el consumo del compresor entre 5% y 8%. Es el ajuste con mayor impacto inmediato.</p>
             </div>
-        </section>
-
-        <section class="section" id="btu">
-            <div class="section-header">
-                <span class="section-kicker">Calculador BTU</span>
-                <h2>Estima una capacidad base.</h2>
-                <p>Calcula una referencia sencilla segun area, exposicion al sol y cantidad de personas. El resultado es orientativo.</p>
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-house-chimney-window"></i></div>
+                <h4>Aislamiento térmico</h4>
+                <p>Fugas por ventanas y puertas obligan al equipo a trabajar continuamente, evitando que el termostato active los ciclos de descanso.</p>
             </div>
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                <h4>Costo unitario y estrato</h4>
+                <p>El kWh varía según región y estrato. Subsidios en estratos 1-3 y contribuciones en 5-6 cambian radicalmente lo que pagas por el mismo consumo.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                <h4>Antigüedad del equipo</h4>
+                <p>Un A.A. de más de 10 años puede consumir hasta 30% más que un modelo equivalente actual, aunque el BTU declarado sea el mismo.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-broom"></i></div>
+                <h4>Mantenimiento</h4>
+                <p>Filtros sucios y serpentines obstruidos reducen el intercambio térmico, forzando al compresor a operar más tiempo para alcanzar la temperatura objetivo.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon"><i class="fa-solid fa-sun"></i></div>
+                <h4>Exposición solar</h4>
+                <p>Habitaciones con ventanas hacia el oeste reciben radiación directa en la tarde. Cortinas térmicas o películas reflectivas reducen la carga del equipo.</p>
+            </div>
+        </div>
+    </section>
 
-            <div class="calculator">
-                <div class="controls">
-                    <div class="form-row">
-                        <label for="area">Area del espacio</label>
-                        <div class="range-line">
-                            <input id="area" type="range" min="8" max="80" value="24">
-                            <span class="range-value"><output id="areaOut">24</output> m2</span>
-                        </div>
+    <section class="edu-band" id="educacion">
+        <div class="section-header" style="margin-bottom: 3rem;">
+            <span class="section-eyebrow" style="color: var(--gold);">// Educación financiera</span>
+            <h2 style="color: var(--cream);">Cómo leer tu recibo paso a paso</h2>
+            <p style="color: rgba(255,244,230,0.65);">Los conceptos clave que aparecen en cada factura eléctrica colombiana, explicados en lenguaje claro.</p>
+        </div>
+        <div class="edu-grid">
+            <div class="edu-item">
+                <div class="num">01 / CU</div>
+                <h5>Costo Unitario</h5>
+                <p>Es el precio por cada kWh consumido. Lo fija la comercializadora y se actualiza mensualmente según fórmula tarifaria.</p>
+            </div>
+            <div class="edu-item">
+                <div class="num">02 / Subsidio</div>
+                <h5>Aporte del Estado</h5>
+                <p>Estratos 1, 2 y 3 reciben un descuento sobre el consumo de subsistencia. No cubre el consumo total, solo el básico.</p>
+            </div>
+            <div class="edu-item">
+                <div class="num">03 / Contribución</div>
+                <h5>Aporte solidario</h5>
+                <p>Estratos 5 y 6 pagan un recargo sobre el CU que financia los subsidios de los estratos bajos. Es ley.</p>
+            </div>
+            <div class="edu-item">
+                <div class="num">04 / Consumo</div>
+                <h5>kWh facturados</h5>
+                <p>Diferencia entre la lectura del medidor actual y la del mes anterior. Si hay error de lectura, puedes solicitar revisión.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="contacto">
+        <div class="section-header">
+            <span class="section-eyebrow">// Hablemos</span>
+            <h2>Consulta con el portal</h2>
+            <p>¿Tienes una duda específica sobre tu factura o el consumo de un equipo? Escríbenos y revisamos el caso.</p>
+        </div>
+        <div class="contact-layout">
+            <div>
+                <form id="portalForm">
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo</label>
+                        <input type="text" id="nombre" class="form-control" required placeholder="Ej: Carlos Ramírez">
                     </div>
-
-                    <div class="form-row">
-                        <label for="personas">Personas frecuentes</label>
-                        <div class="range-line">
-                            <input id="personas" type="range" min="1" max="8" value="2">
-                            <span class="range-value"><output id="personasOut">2</output></span>
-                        </div>
+                    <div class="form-group">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" id="email" class="form-control" required placeholder="tu@correo.com">
                     </div>
-
-                    <div class="form-row">
-                        <label for="sol">Exposicion al sol</label>
-                        <select id="sol">
-                            <option value="0">Baja</option>
-                            <option value="1500" selected>Media</option>
-                            <option value="3000">Alta</option>
-                        </select>
+                    <div class="form-group">
+                        <label for="mensaje">Cuéntanos tu caso</label>
+                        <textarea id="mensaje" class="form-control" rows="4" required placeholder="Describe tu equipo (BTU), horas de uso y estrato..."></textarea>
                     </div>
-
-                    <button class="btn btn-primary" id="actualizar" type="button">
-                        <span class="icon" aria-hidden="true">R</span> Actualizar estimado
+                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                        <i class="fa-solid fa-paper-plane"></i> Enviar consulta
                     </button>
-                </div>
-
-                <div class="result-box">
-                    <span class="section-kicker">Capacidad sugerida</span>
-                    <div class="result-number" id="btuResultado">12000</div>
-                    <p class="result-note">BTU aproximados para el espacio.</p>
-                    <div class="breakdown">
-                        <div><span>Tipo sugerido</span><b id="tipoEquipo">Split 12k</b></div>
-                        <div><span>Rango</span><b id="rangoEquipo">Habitacion media</b></div>
-                        <div><span>Sol</span><b id="solActual">Media</b></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section">
-            <div class="section-header center">
-                <span class="section-kicker">Mantenimiento</span>
-                <h2>Cuatro cuidados basicos.</h2>
-            </div>
-
-            <div class="steps">
-                <article class="step">
-                    <span>01</span>
-                    <h3>Limpia filtros</h3>
-                    <p>Revisalos cada mes si el equipo se usa con frecuencia o hay mucho polvo.</p>
-                </article>
-                <article class="step">
-                    <span>02</span>
-                    <h3>Evita obstrucciones</h3>
-                    <p>No cubras la salida de aire con muebles, cortinas o decoracion cercana.</p>
-                </article>
-                <article class="step">
-                    <span>03</span>
-                    <h3>Revisa drenaje</h3>
-                    <p>Goteos o malos olores pueden indicar suciedad, bloqueo o falta de mantenimiento.</p>
-                </article>
-                <article class="step">
-                    <span>04</span>
-                    <h3>Programa revision</h3>
-                    <p>Una revision tecnica periodica ayuda a detectar ruido, vibracion o baja eficiencia.</p>
-                </article>
-            </div>
-        </section>
-
-        <section class="section">
-            <div class="section-header">
-                <span class="section-kicker">Preguntas frecuentes</span>
-                <h2>Dudas comunes sobre aires acondicionados.</h2>
-            </div>
-
-            <div class="faq-grid">
-                <details>
-                    <summary>A que temperatura conviene usar el aire?</summary>
-                    <p>Una referencia comun de confort esta entre 23°C y 25°C, ajustando segun humedad, ropa, actividad y preferencia.</p>
-                </details>
-                <details>
-                    <summary>Cada cuanto limpiar el filtro?</summary>
-                    <p>En uso frecuente, una revision mensual es una buena base. Si hay polvo, mascotas o humedad alta, puede requerir mas frecuencia.</p>
-                </details>
-                <details>
-                    <summary>Que significa BTU?</summary>
-                    <p>Es una unidad usada para expresar capacidad de enfriamiento. A mayor area o calor interno, mayor capacidad requerida.</p>
-                </details>
-                <details>
-                    <summary>Por que el equipo gotea?</summary>
-                    <p>Puede ocurrir por drenaje obstruido, filtros sucios, instalacion con pendiente incorrecta o falta de mantenimiento.</p>
-                </details>
-            </div>
-        </section>
-
-        <section class="section" id="contacto">
-            <div class="section-header">
-                <span class="section-kicker">Contacto</span>
-                <h2>Consulta sobre climatizacion.</h2>
-                <p>Formulario local para completar la experiencia visual del sitio. No envia informacion a un servidor.</p>
-            </div>
-
-            <div class="contact-layout">
-                <form class="contact-card" id="frioForm">
-                    <div class="form-row">
-                        <label for="nombre">Nombre</label>
-                        <input id="nombre" type="text" placeholder="Ej: Andres" required>
-                    </div>
-                    <div class="form-row">
-                        <label for="correo">Correo</label>
-                        <input id="correo" type="email" placeholder="tu@correo.com" required>
-                    </div>
-                    <div class="form-row">
-                        <label for="mensaje">Consulta</label>
-                        <textarea id="mensaje" placeholder="Describe el espacio, tamano o duda sobre el equipo..." required></textarea>
-                    </div>
-                    <button class="btn btn-primary" type="submit">
-                        <span class="icon" aria-hidden="true">&gt;</span> Registrar consulta
-                    </button>
-                    <div id="formStatus"></div>
                 </form>
-
-                <aside class="contact-card contact-info">
-                    <div class="info-line">
-                        <span class="icon" aria-hidden="true">i</span>
-                        <div>
-                            <h3>Naturaleza del sitio</h3>
-                            <p>Portal informativo sobre aires acondicionados y confort termico.</p>
-                        </div>
-                    </div>
-                    <div class="info-line">
-                        <span class="icon" aria-hidden="true">AC</span>
-                        <div>
-                            <h3>Contenido</h3>
-                            <p>Capacidad, mantenimiento, filtros, instalacion y buenas practicas de uso.</p>
-                        </div>
-                    </div>
-                    <div class="info-line">
-                        <span class="icon" aria-hidden="true">~</span>
-                        <div>
-                            <h3>Enfoque</h3>
-                            <p>Informacion clara para usuarios en zonas de clima calido.</p>
-                        </div>
-                    </div>
-                </aside>
+                <div id="formStatus"></div>
             </div>
-        </section>
-    </main>
+            <div class="contact-side">
+                <h3>Transparencia del portal</h3>
+                <div class="detail-item">
+                    <div class="ico"><i class="fa-solid fa-user-shield"></i></div>
+                    <div>
+                        <h5>Administrador</h5>
+                        <p>ALEX MANUEL ESCOBAR TAPIA</p>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="ico"><i class="fa-solid fa-building"></i></div>
+                    <div>
+                        <h5>Naturaleza</h5>
+                        <p>Portal educativo / Blog informativo</p>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="ico"><i class="fa-solid fa-location-dot"></i></div>
+                    <div>
+                        <h5>Dirección</h5>
+                        <p>Cra. 29 # 24-69, Palmira, Valle del cauca, Colombia</p>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="ico"><i class="fa-solid fa-envelope"></i></div>
+                    <div>
+                        <h5>Correo de soporte</h5>
+                        <p>Tapia898@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <footer>
         <div class="footer-grid">
             <div>
-                <div class="footer-logo"><span class="brand-mark"><span class="icon" aria-hidden="true">*</span></span> friocarib</div>
-                <p>Sitio informativo sobre aires acondicionados, climatizacion, mantenimiento y confort termico.</p>
-            </div>
-            <div>
-                <h3>Secciones</h3>
-                <div class="footer-links">
-                    <a href="#equipos">Equipos</a>
-                    <a href="#guia">Guia</a>
-                    <a href="#btu">BTU</a>
+                <div class="footer-brand">
+                    <span class="brand-mark"><i class="fa-solid fa-bolt"></i></span>
+                    Facura-Caribes
                 </div>
+                <p style="font-size: 0.92rem;">Portal de educación financiera y energética en Colombia. Tu factura, en lenguaje claro.</p>
             </div>
-            <div>
-                <h3>Proyecto</h3>
-                <p>friocarib<br>Portal de climatizacion<br>Contenido informativo</p>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <a href="politica-de-privacidad.html">Política de tratamiento de datos</a>
+                <a href="terminos-y-condiciones.html">Términos y condiciones</a>
+            </div>
+            <div class="footer-links">
+                <h4>Navegar</h4>
+                <a href="#analisis">Análisis</a>
+                <a href="#variables">Variables</a>
+                <a href="#educacion">Educación</a>
+                <a href="#contacto">Contacto</a>
+            </div>
+            <div class="footer-links">
+                <h4>Centro de operaciones</h4>
+                <p style="font-size: 0.92rem; line-height: 1.7;">Palmira, Valle del cauca, Colombia<br>Cra. 29 # 24-69<br>Tapia898@gmail.com</p>
             </div>
         </div>
-        <p class="copyright">2026 friocarib. Informacion general de referencia sobre climatizacion.</p>
+        <div class="copyright">
+            © 2026 Facura-Caribes · Administrado por ALEX MANUEL ESCOBAR TAPIA · Portal exclusivamente informativo.
+        </div>
     </footer>
 
     <script>
-        window.addEventListener("load", () => {
-            document.getElementById("preloader").classList.add("hidden");
+        window.addEventListener('load', () => {
+            const pre = document.getElementById('preloader');
+            pre.style.opacity = '0';
+            setTimeout(() => pre.style.display = 'none', 400);
         });
 
-        document.addEventListener("DOMContentLoaded", () => {
-            const chartElement = document.getElementById("coolingChart");
-            const area = document.getElementById("area");
-            const personas = document.getElementById("personas");
-            const sol = document.getElementById("sol");
-            const areaOut = document.getElementById("areaOut");
-            const personasOut = document.getElementById("personasOut");
-            const btuResultado = document.getElementById("btuResultado");
-            const tipoEquipo = document.getElementById("tipoEquipo");
-            const rangoEquipo = document.getElementById("rangoEquipo");
-            const solActual = document.getElementById("solActual");
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('consumoChart').getContext('2d');
+            const dataConvencional = [85000, 170000, 255000, 340000];
+            const dataInverter = [60000, 120000, 180000, 240000];
 
-            new Chart(chartElement, {
-                type: "line",
+            new Chart(ctx, {
+                type: 'line',
                 data: {
-                    labels: ["0 min", "15 min", "30 min", "45 min", "60 min", "90 min"],
+                    labels: ['Mes 1', 'Mes 2', 'Mes 3', 'Mes 4'],
                     datasets: [
                         {
-                            label: "Temperatura ambiente",
-                            data: [31, 30, 28, 27, 25, 24],
-                            borderColor: "#0ea5e9",
-                            backgroundColor: "rgba(14, 165, 233, 0.14)",
+                            label: 'Convencional',
+                            data: dataConvencional,
+                            borderColor: '#E85D3C',
+                            backgroundColor: 'rgba(232, 93, 60, 0.12)',
                             borderWidth: 3,
                             tension: 0.35,
-                            fill: true
+                            fill: true,
+                            pointBackgroundColor: '#E85D3C',
+                            pointRadius: 5,
+                            pointHoverRadius: 7
                         },
                         {
-                            label: "Confort objetivo",
-                            data: [24, 24, 24, 24, 24, 24],
-                            borderColor: "#66e4c4",
-                            backgroundColor: "rgba(102, 228, 196, 0.1)",
+                            label: 'Inverter',
+                            data: dataInverter,
+                            borderColor: '#1A1A2E',
+                            backgroundColor: 'rgba(245, 179, 66, 0.18)',
                             borderWidth: 3,
-                            tension: 0.2,
-                            fill: false
+                            tension: 0.35,
+                            fill: true,
+                            pointBackgroundColor: '#F5B342',
+                            pointRadius: 5,
+                            pointHoverRadius: 7
                         }
                     ]
                 },
@@ -1266,74 +868,65 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            position: "bottom",
-                            labels: { boxWidth: 14, font: { family: "Arial" } }
+                            position: 'bottom',
+                            labels: {
+                                font: { family: "'Plus Jakarta Sans', sans-serif", weight: '600', size: 12 },
+                                color: '#1A1A2E',
+                                padding: 16,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
                         },
                         tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: '#1A1A2E',
+                            titleColor: '#F5B342',
+                            bodyColor: '#FFF4E6',
+                            padding: 12,
+                            borderColor: 'rgba(245, 179, 66, 0.3)',
+                            borderWidth: 1,
                             callbacks: {
-                                label: context => `${context.dataset.label}: ${context.raw}°C`
+                                label: function(ctx) {
+                                    return ctx.dataset.label + ': $' + ctx.parsed.y.toLocaleString('es-CO');
+                                }
                             }
                         }
                     },
                     scales: {
                         y: {
-                            ticks: { callback: value => `${value}°C` }
+                            beginAtZero: true,
+                            grid: { color: 'rgba(234, 219, 196, 0.5)' },
+                            ticks: {
+                                color: '#7A7A8E',
+                                font: { family: "'JetBrains Mono', monospace", size: 11 },
+                                callback: v => '$' + (v/1000) + 'k'
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                color: '#7A7A8E',
+                                font: { family: "'Plus Jakarta Sans', sans-serif", weight: '600' }
+                            }
                         }
                     }
                 }
             });
+        });
 
-            function redondearBTU(valor) {
-                const rangos = [9000, 12000, 18000, 24000, 36000];
-                return rangos.find(rango => valor <= rango) || 36000;
+        document.getElementById('portalForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('nombre').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const mensaje = document.getElementById('mensaje').value.trim();
+            if (nombre && email && mensaje) {
+                const status = document.getElementById('formStatus');
+                status.style.display = 'block';
+                status.innerHTML = '<i class="fa-solid fa-circle-check" style="color: var(--terracotta);"></i> <strong>Consulta registrada.</strong> Gracias ' + nombre + '. Te responderemos al correo indicado en breve.';
+                this.reset();
+                setTimeout(() => { status.style.display = 'none'; }, 6000);
             }
-
-            function actualizarBTU() {
-                const areaValor = Number(area.value);
-                const personasValor = Number(personas.value);
-                const solValor = Number(sol.value);
-                const estimado = redondearBTU((areaValor * 450) + (personasValor * 500) + solValor);
-
-                areaOut.textContent = areaValor;
-                personasOut.textContent = personasValor;
-                btuResultado.textContent = estimado.toLocaleString("es-CO");
-                solActual.textContent = sol.options[sol.selectedIndex].textContent;
-
-                if (estimado <= 9000) {
-                    tipoEquipo.textContent = "Split 9k";
-                    rangoEquipo.textContent = "Espacio pequeno";
-                } else if (estimado <= 12000) {
-                    tipoEquipo.textContent = "Split 12k";
-                    rangoEquipo.textContent = "Habitacion media";
-                } else if (estimado <= 18000) {
-                    tipoEquipo.textContent = "Split 18k";
-                    rangoEquipo.textContent = "Sala o cuarto amplio";
-                } else {
-                    tipoEquipo.textContent = "Equipo mayor";
-                    rangoEquipo.textContent = "Area amplia";
-                }
-            }
-
-            [area, personas, sol].forEach(control => {
-                control.addEventListener("input", actualizarBTU);
-                control.addEventListener("change", actualizarBTU);
-            });
-            document.getElementById("actualizar").addEventListener("click", actualizarBTU);
-            actualizarBTU();
-
-            document.getElementById("frioForm").addEventListener("submit", event => {
-                event.preventDefault();
-                const nombre = document.getElementById("nombre").value.trim();
-                const status = document.getElementById("formStatus");
-
-                status.style.display = "block";
-                status.textContent = `Consulta registrada localmente para ${nombre}.`;
-                event.currentTarget.reset();
-
-                setTimeout(() => {
-                    status.style.display = "none";
-                }, 5000);
-            });
         });
     </script>
 </body>
